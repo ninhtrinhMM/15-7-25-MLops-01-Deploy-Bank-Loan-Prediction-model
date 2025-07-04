@@ -1,56 +1,48 @@
 pipeline {
     agent any
-    
-    options {
+
+    options{
+        // Max number of build logs to keep and days to keep
         buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
+        // Enable timestamp at each job in the pipeline
         timestamps()
     }
-    
-    environment {
-        registry = 'ninhtrinhmm/loan-prediction-ml'
-        registryCredential = 'dockerhubninhtrinh'
+
+    environment{
+        registry = 'ninhtrinhmm/loan-prediction-ml' # Tên image Docker trên Docker Hub
+        registryCredential = 'dockerhubninhtrinh'   # Đây là tên của credential đã được tạo trong Jenkins để truy cập vào Docker Hub   
     }
-    
+
     stages {
         stage('Test') {
-            agent any  // THAY ĐỔI từ DOcker sang Any cho đỡ lấn cấn
-            steps {
-                echo 'Testing model correctness..'
-                sh 'python -m pip install --user -r requirements.txt && pytest'
-            }
-        }
-        
-        stage('Build') {
             agent {
                 docker {
-                    image 'docker:dind'  // Sử dụng Docker-in-Docker
-                    args '--privileged -v /var/run/docker.sock:/var/run/docker.sock'
+                    image 'python:3.8' 
                 }
             }
             steps {
+                echo 'Testing model correctness..'
+                sh 'pip install -r requirements.txt && pytest'
+            }
+        }
+        stage('Build') {
+            steps {
                 script {
                     echo 'Building image for deployment..'
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                    
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
                     echo 'Pushing image to dockerhub..'
-                    docker.withRegistry('', registryCredential) {
+                    docker.withRegistry( '', registryCredential ) {
                         dockerImage.push()
                         dockerImage.push('latest')
                     }
                 }
             }
         }
-    }
-    
-    post {
-        always {
-            echo 'Pipeline completed - cleanup resources'
-        }
-        success {
-            echo 'Pipeline succeeded!'
-        }
-        failure {
-            echo 'Pipeline failed!'
+        stage('Deploy') {
+            steps {
+                echo 'Deploying models..'
+                echo 'Running a script to trigger pull and start a docker container'
+            }
         }
     }
 }
