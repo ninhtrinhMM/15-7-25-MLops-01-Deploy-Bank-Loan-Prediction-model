@@ -7,8 +7,10 @@ pipeline {
     }
     
     environment {
-        registry = 'ninhtdmorningstar/loan-prediction-ml' //loan-prediction-ml là repository trên Docker Hub
+        registry = 'ninhtdmorningstar/loan-prediction-ml' 
+    // ninhtdmorningstar/loan-prediction-ml là repository đang có trên Docker Hub 
         registryCredential = 'dockerhub.ninhtrinh'
+    // dockerhub.ninhtrinh là credential ID của DOcker Hub đã được cthêm vào Jenkins
     }
     
     stages {
