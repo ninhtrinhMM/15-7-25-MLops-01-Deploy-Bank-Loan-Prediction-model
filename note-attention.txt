@@ -1,0 +1,2 @@
+Jenkins_acc==ninh-jenkins
+Jenkins_pass==a68a21cd579141919b77ba6ffe724a81

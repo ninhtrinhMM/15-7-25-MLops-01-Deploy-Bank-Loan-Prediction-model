@@ -1,0 +1,19 @@
+
+services:
+  jenkins:
+    image: jenkins/jenkins:latest 
+    container_name: jenkins
+    restart: unless-stopped
+    privileged: true
+    #user: root
+    ports:
+      - 8081:8080
+      - 50000:50000
+    volumes:
+      - jenkins_home_2:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      # /var/run/docker.sock bên tay trái : là đường dẫn trên máy chủ Docker
+      # /var/run/docker.sock bên tay phải : là đường dẫn trong container Jenkins
+
+volumes:
+  jenkins_home_2:
