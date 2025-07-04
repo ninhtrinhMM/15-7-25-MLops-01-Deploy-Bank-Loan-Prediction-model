@@ -8,7 +8,7 @@ pipeline {
     
     environment {
         registry = 'ninhtrinhmm/loan-prediction-ml'
-        registryCredential = 'dockerhubninhtrinh'
+        registryCredential = 'dockerhub.ninhtrinh'
     }
     
     stages {
