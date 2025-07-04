@@ -9,9 +9,8 @@ pipeline {
     }
 
     environment{
-        registry = 'ninhtrinhmm/loan-prediction-ml' # Tên image Docker trên Docker Hub
-        registryCredential = 'dockerhubninhtrinh'   # Đây là tên của credential đã được tạo trong Jenkins để truy cập vào Docker Hub   
-    }
+        registry = 'ninhtrinhmm/loan-prediction-ml' 
+        registryCredential = 'dockerhubninhtrinh'  
 
     stages {
         stage('Test') {
