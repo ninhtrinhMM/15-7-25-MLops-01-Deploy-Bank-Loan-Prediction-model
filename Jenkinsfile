@@ -1,32 +1,32 @@
 pipeline {
-    agent any  // Chạy pipeline trên bất kỳ máy chủ Jenkins nào có sẵn
+    agent any
     
     options {
-        buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))  // Giữ tối đa 5 build log
-        timestamps()  // Thêm timestamp vào log
+        buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
+        timestamps()
     }
     
     environment {
-        registry = 'ninhtrinhmm/loan-prediction-ml'  // Tên image Docker
-        registryCredential = 'dockerhubninhtrinh'  // ID credentials DockerHub
+        registry = 'ninhtrinhmm/loan-prediction-ml'
+        registryCredential = 'dockerhubninhtrinh'
     }
     
     stages {
         stage('Test') {
-            agent {
-                docker {
-                    image 'python:3.8'  // Sử dụng container Python 3.8
-                    args '-v $HOME/.cache/pip:/root/.cache/pip'  // Cache pip packages (tùy chọn)
-                }
-            }
+            agent any  // THAY ĐỔI từ DOcker sang Any cho đỡ lấn cấn
             steps {
                 echo 'Testing model correctness..'
-                sh 'pip install -r requirements.txt && pytest'
+                sh 'python -m pip install --user -r requirements.txt && pytest'
             }
         }
         
         stage('Build') {
-            agent any  // Có thể bỏ nếu muốn chạy trên cùng agent với stage trước
+            agent {
+                docker {
+                    image 'docker:dind'  // Sử dụng Docker-in-Docker
+                    args '--privileged -v /var/run/docker.sock:/var/run/docker.sock'
+                }
+            }
             steps {
                 script {
                     echo 'Building image for deployment..'
@@ -45,7 +45,6 @@ pipeline {
     post {
         always {
             echo 'Pipeline completed - cleanup resources'
-            // Có thể thêm bước cleanup ở đây
         }
         success {
             echo 'Pipeline succeeded!'
