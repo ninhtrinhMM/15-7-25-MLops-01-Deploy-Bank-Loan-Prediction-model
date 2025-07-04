@@ -7,7 +7,7 @@ pipeline {
     }
     
     environment {
-        registry = 'ninhtrinhmm/loan-prediction-ml' //loan-prediction-ml là repository trên Docker Hub
+        registry = 'ninhtdmorningstar/loan-prediction-ml' //loan-prediction-ml là repository trên Docker Hub
         registryCredential = 'dockerhub.ninhtrinh'
     }
     
