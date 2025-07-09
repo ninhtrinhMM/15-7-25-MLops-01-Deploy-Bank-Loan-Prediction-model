@@ -1,7 +1,8 @@
 
 services:
   jenkins:
-    image: jenkins/jenkins:latest 
+    image: jenkins/jenkins:latest # image này chỉ hoạt động vói Ubuntu OS
+                                  #image: jenkins/jenkins:lts # image này hoạt động với tất cả
     container_name: jenkins
     restart: unless-stopped
     privileged: true

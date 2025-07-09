@@ -11,6 +11,8 @@ pipeline {
     // ninhtdmorningstar/loan-prediction-ml là repository đang có trên Docker Hub 
         registryCredential = 'dockerhub.ninhtrinh'
     // dockerhub.ninhtrinh là credential ID của DOcker Hub đã được cthêm vào Jenkins
+        APP_NAME = 'loan-prediction'
+        NAMESPACE = 'default'
     }
     
     stages {
@@ -84,7 +86,7 @@ pipeline {
                     pip install -r requirements.txt
                     
                     echo "=== Running Tests ==="
-                    python -m pytest test_simple.py -v || echo "Tests completed"
+                    python -m pytest tests/test-py.py -v || echo "Tests completed"
                 '''
             }
         }
@@ -127,14 +129,179 @@ pipeline {
                 }
             }
         }
+        
+        stage('Deploy to GKE') {
+            when {
+                expression { 
+                    return binding.hasVariable('dockerImage')
+                }
+            }
+            agent {
+                kubernetes {
+                    yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    jenkins: slave
+spec:
+  containers:
+  - name: kubectl
+    image: bitnami/kubectl:latest
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+    - name: docker-sock
+      mountPath: /var/run/docker.sock
+  volumes:
+  - name: docker-sock
+    hostPath:
+      path: /var/run/docker.sock
+"""
+                }
+            }
+            steps {
+                script {
+                    echo 'Deploying to GKE using Kubernetes agent..'
+                    try {
+                        container('kubectl') {
+                            // Tạo Kubernetes deployment manifest
+                            def deploymentYaml = """
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${APP_NAME}
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ${APP_NAME}
+  template:
+    metadata:
+      labels:
+        app: ${APP_NAME}
+    spec:
+      containers:
+      - name: ${APP_NAME}
+        image: ${registry}:${BUILD_NUMBER}
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${APP_NAME}-service
+  namespace: ${NAMESPACE}
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "5000"
+    prometheus.io/path: "/metrics"
+spec:
+  selector:
+    app: ${APP_NAME}
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
+    nodePort: 30080
+  type: NodePort
+"""
+                            
+                            // Ghi file manifest
+                            writeFile file: 'deployment.yaml', text: deploymentYaml
+                            
+                            // Deploy sử dụng kubectl trong container
+                            sh '''
+                                echo "=== Checking kubectl in container ==="
+                                kubectl version --client
+                                
+                                echo "=== Checking cluster connection ==="
+                                kubectl cluster-info
+                                
+                                echo "=== Current cluster context ==="
+                                kubectl config current-context
+                                
+                                echo "=== Cluster nodes ==="
+                                kubectl get nodes
+                                
+                                echo "=== Creating namespace if not exists ==="
+                                kubectl create namespace ${NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -
+                                
+                                echo "=== Applying deployment ==="
+                                kubectl apply -f deployment.yaml
+                                
+                                echo "=== Waiting for deployment to be ready ==="
+                                kubectl rollout status deployment/${APP_NAME} -n ${NAMESPACE} --timeout=300s
+                                
+                                echo "=== Getting deployment status ==="
+                                kubectl get deployments -n ${NAMESPACE}
+                                kubectl get services -n ${NAMESPACE}
+                                kubectl get pods -n ${NAMESPACE} -l app=${APP_NAME}
+                            '''
+                        }
+                        
+                        echo 'Deployment to GKE completed successfully'
+                        
+                    } catch (Exception e) {
+                        echo "GKE deployment failed: ${e.getMessage()}"
+                        currentBuild.result = 'UNSTABLE'
+                    }
+                }
+            }
+        }
     }
     
     post {
         always {
             echo 'Pipeline completed - cleanup resources'
+            // Cleanup deployment files
+            sh 'rm -f deployment.yaml || true'
         }
         success {
             echo 'Pipeline succeeded!'
+            script {
+                if (binding.hasVariable('dockerImage')) {
+                    echo "Application deployed successfully!"
+                    echo "Image: ${registry}:${BUILD_NUMBER}"
+                    
+                    // Lấy thông tin service
+                    try {
+                        def serviceInfo = sh(
+                            script: "kubectl get service ${APP_NAME}-service -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'",
+                            returnStdout: true
+                        ).trim()
+                        
+                        if (serviceInfo) {
+                            echo "Service External IP: ${serviceInfo}"
+                            echo "Application URL: http://${serviceInfo}"
+                        } else {
+                            // Lấy thông tin NodePort service
+                            def nodePortInfo = sh(
+                                script: "kubectl get service ${APP_NAME}-service -n ${NAMESPACE} -o jsonpath='{.spec.ports[0].nodePort}'",
+                                returnStdout: true
+                            ).trim()
+                            
+                            if (nodePortInfo) {
+                                echo "Service NodePort: ${nodePortInfo}"
+                                echo "Access application via: http://<NODE_IP>:${nodePortInfo}"
+                                echo "Get node IPs with: kubectl get nodes -o wide"
+                            }
+                        }
+                    } catch (Exception e) {
+                        echo "Could not retrieve service information: ${e.getMessage()}"
+                    }
+                }
+            }
         }
         failure {
             echo 'Pipeline failed!'
