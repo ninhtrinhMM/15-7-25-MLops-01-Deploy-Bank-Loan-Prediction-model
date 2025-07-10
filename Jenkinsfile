@@ -8,9 +8,7 @@ pipeline {
     
     environment {
         registry = 'ninhtdmorningstar/loan-prediction-ml' 
-    // ninhtdmorningstar/loan-prediction-ml là repository đang có trên Docker Hub 
         registryCredential = 'dockerhub.ninhtrinh'
-    // dockerhub.ninhtrinh là credential ID của DOcker Hub đã được thêm vào Jenkins
         APP_NAME = 'loan-prediction'
         NAMESPACE = 'default'
     }
@@ -129,6 +127,7 @@ pipeline {
                 }
             }
         }
+        
         stage('Deploy to GKE') {
             agent any
             steps {
@@ -168,11 +167,11 @@ spec:
             memory: "512Mi"
 """
 
-            // Ghi nội dung vào file
-            writeFile file: 'deployment.yaml', text: deploymentYaml
-            
-            // Tạo nội dung file service.yaml (nếu cần expose service)
-            def serviceYaml = """
+                    // Ghi nội dung vào file
+                    writeFile file: 'deployment.yaml', text: deploymentYaml
+                    
+                    // Tạo nội dung file service.yaml (nếu cần expose service)
+                    def serviceYaml = """
 apiVersion: v1
 kind: Service
 metadata:
@@ -188,26 +187,28 @@ spec:
       nodePort: 30080
   type: NodePort
 """
-            writeFile file: 'service.yaml', text: serviceYaml
-            
-            // Kiểm tra nội dung file
-            sh 'cat deployment.yaml'
-            sh 'cat service.yaml'
-            
-            // Áp dụng lên GKE cluster
-            withKubeConfig([credentialsId: 'gke-token', serverUrl: 'https://34.124.251.86']) {
-                sh 'kubectl apply -f deployment.yaml'
-                sh 'kubectl apply -f service.yaml'
-                
-                // Kiểm tra trạng thái deployment
-                sh "kubectl get deployments -n ${NAMESPACE}"
-                sh "kubectl get pods -n ${NAMESPACE} -l app=${APP_NAME}"
-                sh "kubectl get services -n ${NAMESPACE}"
+                    writeFile file: 'service.yaml', text: serviceYaml
+                    
+                    // Kiểm tra nội dung file
+                    sh 'cat deployment.yaml'
+                    sh 'cat service.yaml'
+                    
+                    // Áp dụng lên GKE cluster
+                    withKubeConfig([credentialsId: 'gke-token', serverUrl: 'https://34.124.251.86']) {
+                        sh 'kubectl apply -f deployment.yaml'
+                        sh 'kubectl apply -f service.yaml'
+                        
+                        // Kiểm tra trạng thái deployment
+                        sh "kubectl get deployments -n ${NAMESPACE}"
+                        sh "kubectl get pods -n ${NAMESPACE} -l app=${APP_NAME}"
+                        sh "kubectl get services -n ${NAMESPACE}"
+                    }
+                    
+                    // Lấy địa chỉ IP của service để truy cập
+                    def serviceIp = sh(script: "kubectl get svc ${APP_NAME}-service -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
+                    echo "Application deployed! Access at: http://${serviceIp}"
+                }
             }
-            
-            // Lấy địa chỉ IP của service để truy cập
-            def serviceIp = sh(script: "kubectl get svc ${APP_NAME}-service -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
-            echo "Application deployed! Access at: http://${serviceIp}"
         }
     }
-}
+} 
