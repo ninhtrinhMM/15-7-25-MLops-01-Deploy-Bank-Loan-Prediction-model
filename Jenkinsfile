@@ -165,5 +165,5 @@ pipeline {
                 }
             }
         }
-    } // Đóng stages
+    } // Đóng stages llll
 } // Đóng pipeline
