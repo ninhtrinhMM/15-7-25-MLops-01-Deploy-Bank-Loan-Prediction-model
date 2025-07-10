@@ -205,5 +205,5 @@ spec:
                 }
             }
         }
-    }  // <--- Đóng stages (đã có trong file)
-}      // <--- Đóng pipeline (THIẾU - CẦN THÊM)
+    }  
+}      //ok
