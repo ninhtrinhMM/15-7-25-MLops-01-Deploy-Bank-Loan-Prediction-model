@@ -195,6 +195,7 @@ spec:
                     sh 'cat service.yaml'
                     
                     // Áp dụng lên GKE cluster
+                    // credentialsId là ID của credential đã được thêm vào Jenkins để kết nối với GKE
                     withKubeConfig([credentialsId: 'jenkins-cluster-connect', serverUrl: 'https://34.124.251.86']) {
                         sh 'kubectl apply -f deployment.yaml'
                         sh 'kubectl apply -f service.yaml'
