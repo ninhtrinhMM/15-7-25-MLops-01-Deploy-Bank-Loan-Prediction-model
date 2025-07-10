@@ -177,13 +177,17 @@ kind: Service
 metadata:
   name: ${APP_NAME}-service
   namespace: ${NAMESPACE}
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "5000"
+    prometheus.io/path: "/metrics"
 spec:
   selector:
     app: ${APP_NAME}
   ports:
-  - port: 80
+  - protocol: TCP
+    port: 80
     targetPort: 5000
-    protocol: TCP
     nodePort: 30080
   type: NodePort
 """
