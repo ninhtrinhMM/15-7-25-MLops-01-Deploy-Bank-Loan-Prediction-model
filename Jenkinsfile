@@ -133,7 +133,7 @@ pipeline {
             agent any
             steps {
                 script {
-                    // Tạo nội dung file deployment.yaml
+                    // Tạo nội dung cho file deployment.yaml
                     def deploymentYaml = """
 apiVersion: apps/v1
 kind: Deployment
