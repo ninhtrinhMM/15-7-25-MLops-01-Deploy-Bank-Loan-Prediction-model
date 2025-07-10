@@ -201,6 +201,7 @@ spec:
                 // Kiểm tra
                 sh '$HOME/k8s-tools/kubectl get pods'
                 sh '$HOME/k8s-tools/kubectl get svc'
+                }
             }
         }
     }
