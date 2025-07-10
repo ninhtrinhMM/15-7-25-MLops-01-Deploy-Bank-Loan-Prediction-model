@@ -10,7 +10,7 @@ pipeline {
         registry = 'ninhtdmorningstar/loan-prediction-ml' 
     // ninhtdmorningstar/loan-prediction-ml là repository đang có trên Docker Hub 
         registryCredential = 'dockerhub.ninhtrinh'
-    // dockerhub.ninhtrinh là credential ID của DOcker Hub đã được cthêm vào Jenkins
+    // dockerhub.ninhtrinh là credential ID của DOcker Hub đã được thêm vào Jenkins
         APP_NAME = 'loan-prediction'
         NAMESPACE = 'default'
     }
