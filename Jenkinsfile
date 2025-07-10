@@ -177,10 +177,6 @@ kind: Service
 metadata:
   name: ${APP_NAME}-service
   namespace: ${NAMESPACE}
-  annotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "5000"
-    prometheus.io/path: "/metrics"
 spec:
   selector:
     app: ${APP_NAME}
@@ -198,7 +194,14 @@ spec:
                                 echo "kubectl not found, installing..."
                                 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
                                 chmod +x kubectl
-                                sudo mv kubectl /usr/local/bin/
+                                
+                                # Thử move với sudo trước, nếu fail thì dùng trong current directory
+                                if sudo mv kubectl /usr/local/bin/ 2>/dev/null; then
+                                    echo "kubectl installed to /usr/local/bin/"
+                                else
+                                    echo "Cannot use sudo, keeping kubectl in current directory"
+                                    export PATH=$PATH:$PWD
+                                fi
                             fi
                             kubectl version --client
                         '''
