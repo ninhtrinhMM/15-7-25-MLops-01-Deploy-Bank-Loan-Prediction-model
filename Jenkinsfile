@@ -161,7 +161,8 @@ pipeline {
                 sh "$HOME/k8s-tools/kubectl get deployments -n ${NAMESPACE}"
                 sh "$HOME/k8s-tools/kubectl get pods -n ${NAMESPACE} -l app=${APP_NAME}"
                 sh "$HOME/k8s-tools/kubectl get services -n ${NAMESPACE}"
+                }
             }
         }
     }
-}
+}  
