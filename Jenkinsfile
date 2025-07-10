@@ -201,8 +201,9 @@ spec:
                 // Kiểm tra
                 sh '$HOME/k8s-tools/kubectl get pods'
                 sh '$HOME/k8s-tools/kubectl get svc'
+                   }
                 }
             }
         }
-    }
-}
+    }  // <--- Đóng stages (đã có trong file)
+}      // <--- Đóng pipeline (THIẾU - CẦN THÊM)
