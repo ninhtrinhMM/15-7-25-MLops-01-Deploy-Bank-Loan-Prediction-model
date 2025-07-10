@@ -195,7 +195,7 @@ spec:
                     sh 'cat service.yaml'
                     
                     // Áp dụng lên GKE cluster
-                    withKubeConfig([credentialsId: 'gke-token', serverUrl: 'https://34.124.251.86']) {
+                    withKubeConfig([credentialsId: 'jenkins-cluster-connect', serverUrl: 'https://34.124.251.86']) {
                         sh 'kubectl apply -f deployment.yaml'
                         sh 'kubectl apply -f service.yaml'
                         
