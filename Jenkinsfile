@@ -129,18 +129,12 @@ pipeline {
                 }
             }
         }
-        stage('Deploy GKE') {
-            when {
-                expression { 
-                    return binding.hasVariable('dockerImage')
-                }
-            }
+        stage('Deploy to GKE') {
+            agent any
             steps {
                 script {
-                    echo 'Deploying to GKE cluster..'
-                    try {
-                        // Tạo file deployment.yaml
-                        writeFile file: 'deployment.yaml', text: """
+                    // Tạo nội dung file deployment.yaml
+                    def deploymentYaml = """
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -161,149 +155,59 @@ spec:
       containers:
       - name: ${APP_NAME}-container
         image: ${registry}:${BUILD_NUMBER}
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "250m"
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
         
----
+        resources:
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+          requests:
+            cpu: "0.5"
+            memory: "512Mi"
+"""
+
+            // Ghi nội dung vào file
+            writeFile file: 'deployment.yaml', text: deploymentYaml
+            
+            // Tạo nội dung file service.yaml (nếu cần expose service)
+            def serviceYaml = """
 apiVersion: v1
 kind: Service
 metadata:
   name: ${APP_NAME}-service
   namespace: ${NAMESPACE}
-  annotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "5000"
-    prometheus.io/path: "/metrics"
 spec:
   selector:
     app: ${APP_NAME}
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 5000
-    nodePort: 30080
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+      nodePort: 30080
   type: NodePort
 """
-                        
-                        // Kiểm tra và cài đặt kubectl nếu cần
-                        sh '''
-                            if ! command -v kubectl &> /dev/null; then
-                                echo "kubectl not found, installing..."
-                                curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-                                chmod +x kubectl
-                                
-                                # Thử move với sudo trước, nếu fail thì dùng trong current directory
-                                if sudo mv kubectl /usr/local/bin/ 2>/dev/null; then
-                                    echo "kubectl installed to /usr/local/bin/"
-                                else
-                                    echo "Cannot use sudo, keeping kubectl in current directory"
-                                    export PATH=$PATH:$PWD
-                                fi
-                            fi
-                            kubectl version --client
-                        '''
-                        
-                        // Kiểm tra kết nối cluster
-                        sh '''
-                            echo "=== Checking cluster connection ==="
-                            kubectl cluster-info
-                            kubectl get nodes
-                            kubectl get namespaces
-                        '''
-                        
-                        // Tạo namespace nếu chưa tồn tại
-                        sh """
-                            kubectl create namespace ${NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -
-                        """
-                        
-                        // Deploy application
-                        sh '''
-                            echo "=== Deploying application ==="
-                            kubectl apply -f deployment.yaml
-                            
-                            echo "=== Waiting for deployment to be ready ==="
-                            kubectl rollout status deployment/${APP_NAME}-deployment -n ${NAMESPACE} --timeout=300s
-                            
-                            echo "=== Checking deployment status ==="
-                            kubectl get deployments -n ${NAMESPACE}
-                            kubectl get pods -n ${NAMESPACE} -l app=${APP_NAME}
-                            kubectl get services -n ${NAMESPACE}
-                        '''
-                        
-                        // Lấy thông tin service
-                        def serviceInfo = sh(
-                            script: "kubectl get service ${APP_NAME}-service -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'",
-                            returnStdout: true
-                        ).trim()
-                        
-                        if (serviceInfo) {
-                            echo "Application deployed successfully!"
-                            echo "External IP: ${serviceInfo}"
-                            echo "You can access your application at: http://${serviceInfo}"
-                        } else {
-                            echo "Deployment completed. External IP is being assigned..."
-                            echo "Check external IP with: kubectl get service ${APP_NAME}-service -n ${NAMESPACE}"
-                        }
-                        
-                    } catch (Exception e) {
-                        echo "Deployment failed: ${e.getMessage()}"
-                        
-                        // Debug information
-                        sh '''
-                            echo "=== Debug Information ==="
-                            kubectl get pods -n ${NAMESPACE} -l app=${APP_NAME} || true
-                            kubectl describe deployment ${APP_NAME}-deployment -n ${NAMESPACE} || true
-                            kubectl logs -l app=${APP_NAME} -n ${NAMESPACE} --tail=50 || true
-                        '''
-                        
-                        currentBuild.result = 'UNSTABLE'
-                    }
-                }
+            writeFile file: 'service.yaml', text: serviceYaml
+            
+            // Kiểm tra nội dung file
+            sh 'cat deployment.yaml'
+            sh 'cat service.yaml'
+            
+            // Áp dụng lên GKE cluster
+            withKubeConfig([credentialsId: 'gke-token', serverUrl: 'https://34.124.251.86']) {
+                sh 'kubectl apply -f deployment.yaml'
+                sh 'kubectl apply -f service.yaml'
+                
+                // Kiểm tra trạng thái deployment
+                sh "kubectl get deployments -n ${NAMESPACE}"
+                sh "kubectl get pods -n ${NAMESPACE} -l app=${APP_NAME}"
+                sh "kubectl get services -n ${NAMESPACE}"
             }
-        }
-        
-        stage('Cleanup') {
-            steps {
-                script {
-                    echo 'Cleaning up..'
-                    sh '''
-                        # Xóa file deployment.yaml sau khi deploy
-                        rm -f deployment.yaml
-                        
-                        # Xóa docker image local để tiết kiệm dung lượng
-                        docker rmi ${registry}:${BUILD_NUMBER} || true
-                        docker rmi ${registry}:latest || true
-                        
-                        echo "Cleanup completed"
-                    '''
-                }
-            }
-        }
-    }
-    
-    post {
-        always {
-            echo 'Pipeline completed'
-            sh '''
-                echo "=== Final Status ==="
-                kubectl get all -n ${NAMESPACE} -l app=${APP_NAME} || true
-            '''
-        }
-        success {
-            echo 'Pipeline succeeded!'
-        }
-        failure {
-            echo 'Pipeline failed!'
-        }
-        unstable {
-            echo 'Pipeline completed with warnings'
+            
+            // Lấy địa chỉ IP của service để truy cập
+            def serviceIp = sh(script: "kubectl get svc ${APP_NAME}-service -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
+            echo "Application deployed! Access at: http://${serviceIp}"
         }
     }
 }
