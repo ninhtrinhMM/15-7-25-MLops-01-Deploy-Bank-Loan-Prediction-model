@@ -151,6 +151,10 @@ spec:
     metadata:
       labels:
         app: ${APP_NAME}
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "5000"
+        prometheus.io/path: "/metrics"
     spec:
       containers:
       - name: ${APP_NAME}-container
@@ -166,10 +170,10 @@ kind: Service
 metadata:
   name: ${APP_NAME}-service
   namespace: ${NAMESPACE}
-  annotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "5000"
-    prometheus.io/path: "/metrics"
+  #annotations:
+    #prometheus.io/scrape: "true"
+    #prometheus.io/port: "5000"
+    #prometheus.io/path: "/metrics"
 spec:
   selector:
     app: ${APP_NAME}
