@@ -74,7 +74,7 @@ error_counter = meter.create_counter(
 
 app = FastAPI(title="ML Prediction Service", version="0.1.0")
 
-### Thêm vào FastAPI app: tích hợp exporter Prometheus với ASGI
+### ---Thêm vào FastAPI app: tích hợp exporter Prometheus với ASGI
 from prometheus_client import make_asgi_app
 app.mount("/metrics", make_asgi_app())
 ###----------------------------------
