@@ -1,19 +1,29 @@
-from fastapi import FastAPI, HTTPException
+import time
+import logging
 import joblib
 import numpy as np
-from opentelemetry import trace, metrics
-from opentelemetry.exporter.jaeger.thrift import JaegerExporter
-from opentelemetry.exporter.prometheus import PrometheusMetricReader
-from opentelemetry.sdk.resources import SERVICE_NAME, Resource
+from typing import List
+from functools import wraps
+from fastapi import FastAPI, HTTPException
+from fastapi.responses import Response
+
+# Import OpenTelemetry
+from opentelemetry import trace
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
-from opentelemetry.sdk.metrics import MeterProvider
+from opentelemetry.exporter.jaeger.thrift import JaegerExporter
+from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 from opentelemetry.trace import get_tracer_provider, set_tracer_provider
+
+# Import OpenTelemetry Metrics
+from opentelemetry import metrics
+from opentelemetry.sdk.metrics import MeterProvider
+from opentelemetry.sdk.resources import Resource
+from opentelemetry.exporter.prometheus import PrometheusMetricReader
 from opentelemetry.metrics import get_meter_provider, set_meter_provider
-from functools import wraps
-from typing import List
-import logging
-import time
+
+# Import Prometheus client
+from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST, REGISTRY
 
 # Thiết lập logging
 logging.basicConfig(level=logging.INFO)
@@ -41,43 +51,28 @@ trace.get_tracer_provider().add_span_processor(
 # Lấy tracer
 tracer = get_tracer_provider().get_tracer("ml-prediction", "0.1.2")
 
-# 2. Thiết lập Metrics với Prometheus
-prometheus_reader = PrometheusMetricReader()
-set_meter_provider(
-    MeterProvider(
-        resource=resource,
-        metric_readers=[prometheus_reader]
-    )
+# 2. Tạo Prometheus metrics trực tiếp bằng prometheus_client
+model_request_counter = Counter(
+    'model_request_total',
+    'Total number of requests sent to model',
+    ['endpoint']
 )
 
-# Lấy meter
-meter = get_meter_provider().get_meter("ml-prediction", "0.1.2")
-
-# Tạo các metrics
-model_request_counter = meter.create_counter(
-    name="model_request_counter",
-    description="Total number of requests sent to model",
-    unit="1"
+prediction_duration_histogram = Histogram(
+    'ml_prediction_duration_seconds',
+    'Time spent on predictions',
+    ['endpoint', 'status']
 )
 
-prediction_duration_histogram = meter.create_histogram(
-    name="ml_prediction_duration_seconds",
-    description="Time spent on predictions",
-    unit="s"
+error_counter = Counter(
+    'ml_errors_total',
+    'Total number of errors',
+    ['operation', 'error_type']
 )
 
-error_counter = meter.create_counter(
-    name="ml_errors_total",
-    description="Total number of errors",
-    unit="1"
-)
-
+# Tạo FastAPI app
 app = FastAPI(title="ML Prediction Service", version="0.1.0")
 
-### ---Thêm vào FastAPI app: tích hợp exporter Prometheus với ASGI
-from prometheus_client import make_asgi_app
-app.mount("/metrics", make_asgi_app())
-###----------------------------------
 # Biến global để cache model
 cached_model = None
 
@@ -115,7 +110,7 @@ def load_model():
         logger.error(f"Error loading model: {e}")
         
         # Increment error counters
-        error_counter.add(1, {"operation": "model_load", "error_type": type(e).__name__})
+        error_counter.labels(operation="model_load", error_type=type(e).__name__).inc()
         
         raise HTTPException(status_code=500, detail=f"Failed to load model: {str(e)}")
 
@@ -144,7 +139,7 @@ def make_prediction(model, features):
         
         # Record successful prediction metrics
         duration = time.time() - start_time
-        prediction_duration_histogram.record(duration, {"status": "success"})
+        prediction_duration_histogram.labels(endpoint="internal", status="success").observe(duration)
         
         return result
         
@@ -153,8 +148,8 @@ def make_prediction(model, features):
         
         # Record error metrics
         duration = time.time() - start_time
-        prediction_duration_histogram.record(duration, {"status": "error"})
-        error_counter.add(1, {"operation": "prediction", "error_type": type(e).__name__})
+        prediction_duration_histogram.labels(endpoint="internal", status="error").observe(duration)
+        error_counter.labels(operation="prediction", error_type=type(e).__name__).inc()
         
         raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
 
@@ -164,7 +159,7 @@ def predict(features: List[float]):
     endpoint_start_time = time.time()
     
     # Đếm số lượng request được gửi đến model
-    model_request_counter.add(1, {"endpoint": "/predict"})
+    model_request_counter.labels(endpoint="/predict").inc()
     
     try:
         with tracer.start_as_current_span("prediction-endpoint") as span:
@@ -186,7 +181,7 @@ def predict(features: List[float]):
             
             # Record endpoint metrics
             endpoint_duration = time.time() - endpoint_start_time
-            prediction_duration_histogram.record(endpoint_duration, {"endpoint": "/predict", "status": "success"})
+            prediction_duration_histogram.labels(endpoint="/predict", status="success").observe(endpoint_duration)
             
             logger.info(f"Returning prediction: {prediction}")
             return {"prediction": prediction, "status": "success"}
@@ -194,25 +189,24 @@ def predict(features: List[float]):
     except HTTPException as he:
         # Record HTTP error metrics
         endpoint_duration = time.time() - endpoint_start_time
-        prediction_duration_histogram.record(endpoint_duration, {"endpoint": "/predict", "status": "http_error"})
-        error_counter.add(1, {"operation": "endpoint", "error_type": "HTTPException"})
+        prediction_duration_histogram.labels(endpoint="/predict", status="http_error").observe(endpoint_duration)
+        error_counter.labels(operation="endpoint", error_type="HTTPException").inc()
         raise he
     except Exception as e:
         logger.error(f"Unexpected error in prediction endpoint: {e}")
         
         # Record unexpected error metrics
         endpoint_duration = time.time() - endpoint_start_time
-        prediction_duration_histogram.record(endpoint_duration, {"endpoint": "/predict", "status": "error"})
-        error_counter.add(1, {"operation": "endpoint", "error_type": type(e).__name__})
+        prediction_duration_histogram.labels(endpoint="/predict", status="error").observe(endpoint_duration)
+        error_counter.labels(operation="endpoint", error_type=type(e).__name__).inc()
         
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
-# Endpoint để expose Prometheus metrics
-#@app.get("/metrics")
-#def get_metrics():
-    #"""Endpoint để Prometheus scrape metrics"""
-    #from prometheus_client import generate_latest
-    #return generate_latest()
+# QUAN TRỌNG: Endpoint để expose Prometheus metrics
+@app.get("/metrics")
+def get_metrics():
+    """Endpoint để Prometheus scrape metrics"""
+    return Response(generate_latest(REGISTRY), media_type=CONTENT_TYPE_LATEST)
 
 # Health check endpoints
 @app.get("/")
@@ -257,5 +251,3 @@ if __name__ == "__main__":
     import uvicorn
     logger.info("Starting ML Prediction Service...")
     uvicorn.run(app, host="0.0.0.0", port=5000)
-    
-

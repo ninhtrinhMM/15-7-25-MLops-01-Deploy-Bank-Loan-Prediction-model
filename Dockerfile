@@ -1,42 +1,24 @@
-# Sử dụng Python 3.11 slim image làm base
-FROM python:3.11-slim
+FROM python:3.9-slim
 
-# Thiết lập thư mục làm việc
+# Set working directory
 WORKDIR /app
 
-# Thiết lập biến môi trường
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    PYTHONPATH=/app
-
-# Cài đặt system dependencies cần thiết
-RUN apt-get update && apt-get install -y \
-    gcc \
-    g++ \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copy requirements và cài đặt Python dependencies
+# Copy requirements first for better caching
 COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
 
-# Copy source code
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
 COPY ML-app.py .
-
-# Copy model file
 COPY model_ml.joblib .
-
-# Tạo user non-root để chạy ứng dụng (bảo mật tốt hơn)
-RUN adduser --disabled-password --gecos '' appuser && \
-    chown -R appuser:appuser /app
-USER appuser
 
 # Expose port
 EXPOSE 5000
 
 # Health check
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD python -c "import requests; requests.get('http://localhost:5000/health')" || exit 1
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:5000/health || exit 1
 
-# Command để chạy ứng dụng
+# Run the application
 CMD ["python", "ML-app.py"]
