@@ -74,6 +74,10 @@ error_counter = meter.create_counter(
 
 app = FastAPI(title="ML Prediction Service", version="0.1.0")
 
+### Thêm vào FastAPI app: tích hợp exporter Prometheus với ASGI
+from prometheus_client import make_asgi_app
+app.mount("/metrics", make_asgi_app())
+###----------------------------------
 # Biến global để cache model
 cached_model = None
 
@@ -204,11 +208,11 @@ def predict(features: List[float]):
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 # Endpoint để expose Prometheus metrics
-@app.get("/metrics")
-def get_metrics():
-    """Endpoint để Prometheus scrape metrics"""
-    from prometheus_client import generate_latest
-    return generate_latest()
+#@app.get("/metrics")
+#def get_metrics():
+    #"""Endpoint để Prometheus scrape metrics"""
+    #from prometheus_client import generate_latest
+    #return generate_latest()
 
 # Health check endpoints
 @app.get("/")
@@ -253,3 +257,5 @@ if __name__ == "__main__":
     import uvicorn
     logger.info("Starting ML Prediction Service...")
     uvicorn.run(app, host="0.0.0.0", port=5000)
+    
+
