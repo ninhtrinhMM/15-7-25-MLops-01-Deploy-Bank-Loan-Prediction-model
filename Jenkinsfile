@@ -170,7 +170,7 @@ kind: Service
 metadata:
   name: ${APP_NAME}-service
   namespace: ${NAMESPACE}
-  label:
+  labels:
     app: service-monitor
   annotations:
     prometheus.io/scrape: "true"
