@@ -163,7 +163,7 @@ spec:
         - containerPort: 5000
 """
             
-            // Tạo file service.yaml
+            // Tạo file service.yaml cho deployment
             writeFile file: 'service.yaml', text: """
 apiVersion: v1
 kind: Service
