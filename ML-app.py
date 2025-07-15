@@ -32,15 +32,21 @@ logger = logging.getLogger(__name__)
 # Resource chung cho cả tracing và metrics
 resource = Resource.create({SERVICE_NAME: "ml-prediction-service"})
 
-# 1. Thiết lập Tracing với Jaeger
-set_tracer_provider(
+# 1. Lấy cấu hình từ env
+jaeger_host = os.getenv("JAEGER_AGENT_HOST", "jaeger")
+jaeger_port = int(os.getenv("JAEGER_AGENT_PORT", 6831))
+service_name = os.getenv("JAEGER_SERVICE_NAME", "ml-service")
+
+# 2.Thiết lập Tracing với Jaeger
+###### thêm trace. ở đằng trước để sử dụng OpenTelemetry
+trace.set_tracer_provider(
     TracerProvider(resource=resource)
 )
 
 # Tạo Jaeger Exporter
 jaeger_exporter = JaegerExporter(
-    agent_host_name="jaeger",
-    agent_port=6831,
+    agent_host_name=jaeger_host,
+    agent_port=jaeger_port,
 )
 
 # Thêm processor để gửi span đến Jaeger
