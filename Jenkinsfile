@@ -161,15 +161,7 @@ spec:
         image: ${registry}:latest
         ports:
         - containerPort: 5000
-        # Bổ sung thêm biến môi trường để kết nối tới Jaeger
-        env:
-        - name: JAEGER_SERVICE_NAME
-          value: "${APP_NAME}"
-        - name: JAEGER_AGENT_HOST
-          value: "jaeger.observability.svc.cluster.local" # DNS trong cluster
-        - name: JAEGER_AGENT_PORT
-          value: "6831"
-        
+
 """
             
             // Tạo file service.yaml cho deployment
