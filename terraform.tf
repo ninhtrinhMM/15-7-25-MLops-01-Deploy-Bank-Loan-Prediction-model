@@ -25,10 +25,7 @@ resource "google_container_cluster" "my-gke" {
 		node_config {	
 			machine_type = "e2-medium"		
 			disk_size_gb = 20		
-		
-			metadata = {		
-				ssh-keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINoiKgxjY9KnWE3rENv/irbJ4zAdQVZtvCtvydb1oJCR duongninh098@gmail.com"	
-			}		
+				
 		}			
 	}
 	remove_default_node_pool = true
