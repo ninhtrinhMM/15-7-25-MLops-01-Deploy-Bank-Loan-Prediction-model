@@ -172,7 +172,7 @@ metadata:
   name: ${APP_NAME}-service
   namespace: ${NAMESPACE}
   labels:
-    app: service-monitor
+    app: service-monitor ## match label của Service Monitor
   annotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "5000"
