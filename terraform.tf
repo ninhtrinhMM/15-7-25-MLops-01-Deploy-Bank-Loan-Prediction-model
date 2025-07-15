@@ -49,6 +49,10 @@ resource "google_compute_firewall" "firewall-mlops"{
 													 // 16686: port của Jaeger
 		                                             // 5000: port của app
 		                                             // 3000: port của Grafana....		
+	}
+	allow {				
+		protocol = "udp"			
+		ports    = ["6831"] // 6831: port của Jaeger Agent
 	}				
 	source_ranges = ["0.0.0.0/0"]   // allow all trafic				
 }					
