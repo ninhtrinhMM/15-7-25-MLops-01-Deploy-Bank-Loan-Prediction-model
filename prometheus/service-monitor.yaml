@@ -9,7 +9,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: service-monitor  # Thay thế bằng label của service ML của bạn
+      app: service-monitor  # Thay thế bằng label của service trong deployment
   endpoints:
   - port: http  # Hoặc tên port trong service của bạn
     path: /metrics
