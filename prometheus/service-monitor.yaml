@@ -11,10 +11,10 @@ spec:
     matchLabels:
       app: service-monitor  # Thay thế bằng label của service trong deployment
   endpoints:
-  - port: http  # Hoặc tên port trong service của bạn
+  - port: http  # Tên Port trong service của deployment
     path: /metrics
     interval: 30s
     scrapeTimeout: 10s
   namespaceSelector:
     matchNames:
-    - default  # Thay thế bằng namespace mà ML service của bạn đang chạy
+    - default  # Thay thế bằng namespace của service trong Deplotment
