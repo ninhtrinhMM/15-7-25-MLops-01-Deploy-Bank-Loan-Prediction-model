@@ -1,8 +1,39 @@
-services:
-  jaeger:
-    image: jaegertracing/all-in-one:1.47
-    container_name: jaeger
-    restart: unless-stopped
-    ports:
-      - "6831:6831/udp"
-      - "16686:16686"
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jaeger
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jaeger
+  template:
+    metadata:
+      labels:
+        app: jaeger
+    spec:
+      containers:
+      - name: jaeger
+        image: jaegertracing/all-in-one:1.47
+        ports:
+        - containerPort: 6831
+          protocol: UDP
+        - containerPort: 16686
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaeger
+spec:
+  selector:
+    app: jaeger
+  ports:
+    - name: udp
+      port: 6831
+      targetPort: 6831
+      protocol: UDP
+    - name: ui
+      port: 16686
+      targetPort: 16686
+  type: NodePort
