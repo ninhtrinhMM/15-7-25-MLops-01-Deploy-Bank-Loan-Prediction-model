@@ -44,8 +44,11 @@ resource "google_compute_firewall" "firewall-mlops"{
 	network = "default"				
 	allow {				
 		protocol = "tcp"			
-		ports    = ["5000", "30080", "3000", "9090"] // 9090: port của Prometheus
-		                                             // 30080: port của Node Port Service  			
+		ports    = ["5000", "30080", "3000", "9090", "16686"] // 9090: port của Prometheus
+		                                             // 30080: port của Node Port Service  	
+													 // 16686: port của Jaeger
+		                                             // 5000: port của app
+		                                             // 3000: port của Grafana		
 	}				
 	source_ranges = ["0.0.0.0/0"]   // allow all trafic				
 }					
