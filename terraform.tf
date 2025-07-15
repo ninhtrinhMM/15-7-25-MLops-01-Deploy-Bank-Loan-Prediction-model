@@ -48,7 +48,7 @@ resource "google_compute_firewall" "firewall-mlops"{
 		                                             // 30080: port của Node Port Service  	
 													 // 16686: port của Jaeger
 		                                             // 5000: port của app
-		                                             // 3000: port của Grafana		
+		                                             // 3000: port của Grafana....		
 	}				
 	source_ranges = ["0.0.0.0/0"]   // allow all trafic				
 }					
