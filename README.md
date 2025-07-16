@@ -5,7 +5,7 @@
 3. [ĐI chơi](#3-đi-chơi)
 4. [ĐI ngủ](#4-đi-ngủ)
 
----
+-------
 
 ## 1. Giới thiệu chung
 
