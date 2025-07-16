@@ -81,7 +81,11 @@ Truy cập github.com, tạo tài khoản nếu chưa có và khởi tạo 1 Rep
 <img width="327" height="148" alt="Image" src="https://github.com/user-attachments/assets/8c25622d-d712-48f0-ab1d-3edbbfc86ed6" />  
 Trở về VS Code, chạy lệnh: ```git add .``` để add tất cả các Folder hiện tại vào Stageing Area.  
 Chạy lệnh: ```git commit -m <Tên commit>``` để tạo 1 bản ghi Commit mới.  
-Chạy lệnh: ```git add remote 
+Chạy lệnh: ```git remote add origin <Link Github Repo bạn vừa mới tạo>```  để tạo 1 remote tên origin nhằm liên kểt Repo dưới Local (toàn bộ file và folder đang được mở bằng VS Code) với Github Repo của bạn. 
+Đồng hóa ( Synchronize ) giữa Repo dưới Local với Github repo: ```git push -u origin main```  
+Từ giờ khi có 1 Commit mới được tạo ra thì để đẩy lên Github Repo chỉ cần chạy ```git push```  
+
+
 
 
 
