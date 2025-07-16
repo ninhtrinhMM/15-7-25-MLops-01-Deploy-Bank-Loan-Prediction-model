@@ -66,6 +66,9 @@ Khởi động các APIs cần thiết bằng 3 command sau:
 ```gcloud services enable compute.googleapis.com```  
 ```gcloud services enable container.googleapis.com```  
 ```gcloud services enable storage.googleapis.com```  
+Chạy các lệnh sau để kiểm tra Terraform đã thích ứng với OS và syntax trong file Terraform chưa:  
+```terraform init```  
+```terraform plan```  
 Chạy file Terraform: ```terraform apply```, sau đó chọn "Y".  
 Sau khi chạy xong, truy cập https://console.cloud.google.com/ --> My First Project --> <Tên Project trong file Terraform> --> Kubenetes Engines --> Cluster để kiểm tra    
 <img width="1033" height="539" alt="Image" src="https://github.com/user-attachments/assets/ceffd75e-a224-43be-a3fe-776306e76fb3" />  
@@ -76,6 +79,9 @@ Nếu thấy tên của Cluster trùng với tên Cluster được thiết lập
 ## **4. Khởi tạo Github Repo**  
 Truy cập github.com, tạo tài khoản nếu chưa có và khởi tạo 1 Repository ( Kho lưu trữ các file ) mới, điền Repository Name và để ở chế độ **PUBLIC**.    
 <img width="327" height="148" alt="Image" src="https://github.com/user-attachments/assets/8c25622d-d712-48f0-ab1d-3edbbfc86ed6" />  
+Trở về VS Code, chạy lệnh: ```git add .``` để add tất cả các Folder hiện tại vào Stageing Area.  
+Chạy lệnh: ```git commit -m <Tên commit>``` để tạo 1 bản ghi Commit mới.  
+Chạy lệnh: ```git add remote 
 
 
 
