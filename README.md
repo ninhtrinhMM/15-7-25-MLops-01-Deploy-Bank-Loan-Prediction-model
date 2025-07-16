@@ -30,7 +30,7 @@
 - Helm
 ## 2. Chuẩn bị
 ### a. Kéo Repo (Kho chứa các file và folder) trên Github về:
-Mở 1 folder trống bất kỳ trên máy Local bằng VS Code (hoặc IDE khác như Trae, Pycharm, Eclipse,..), xong mở Terminal và gõ lần lượt các lệnh sau: 
+Mở 1 folder trống bất kỳ trên máy Local bằng VS Code (hoặc IDE khác như Trae, Pycharm, Eclipse,..), xong mở Terminal trong đó và gõ lần lượt các lệnh sau: 
 - ```git init```
 - ```git pull https://github.com/ninhtrinhMM/15-7-25-MLops-01-Deploy-Bank-Loan-Prediction-model```
 - Ngay sau đó toàn bộ Github Repo từ trong link sẽ được tải về máy local.
