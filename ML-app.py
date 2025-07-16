@@ -111,7 +111,7 @@ def load_model():
     except Exception as e:
         logger.error(f"Error loading model: {e}")
         
-        # Increment error counters
+        # Thiết lập metrics cho error khi load model
         error_counter.labels(operation="model_load", error_type=type(e).__name__).inc()
         
         raise HTTPException(status_code=500, detail=f"Failed to load model: {str(e)}")
@@ -204,7 +204,7 @@ def predict(features: List[float]):
         
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
-# QUAN TRỌNG: Endpoint để expose Prometheus metrics
+### Endpoint để expose Prometheus metrics ###
 @app.get("/metrics")
 def get_metrics():
     """Endpoint để Prometheus scrape metrics"""
