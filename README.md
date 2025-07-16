@@ -2,7 +2,7 @@
 
 1. [Giới thiệu chung](#1-giới-thiệu-chung)
 2. [Chuẩn bị](#2-chuẩn-bị)
-3. [ĐI chơi](#3-đi-chơi)
+3. [Khởi tạo Cluster (cụm máy) trên GCP thông qua Terraform](#3-Khởi-tạo-Cluster-(cụm-máy)-trên-GCP-thông-qua-Terraform)
 4. [ĐI ngủ](#4-đi-ngủ)
 
 -------
