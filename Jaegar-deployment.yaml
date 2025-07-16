@@ -36,4 +36,4 @@ spec:
     - name: ui
       port: 16686
       targetPort: 16686
-  type: ClusterIP
+  type: ClusterIP # setup Cluster để dùng Port-forward cho tiện
