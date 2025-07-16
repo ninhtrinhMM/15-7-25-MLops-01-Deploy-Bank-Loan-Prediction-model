@@ -7,7 +7,7 @@
 
 -------
 
-## 1. Giới thiệu chung
+## 1. Giới thiệu tổng quát
 
 ### a. Sơ lược về mô hình ML và mục đích triển khai
 - Mô hình Machine Learning trong Github Repo được huấn luyện với bộ dữ liệu chứa 45.000 bản ghi về người đăng ký vay vốn, với nhiều thuộc tính khác nhau liên quan đến:
@@ -19,7 +19,7 @@
   - Đánh giá rủi ro tín dụng
   - Dự đoán khả năng vỡ nợ
 - Mô hình được Data Preprocessing bởi các phương pháp Label Encoding và Standard Scaler.
-- Sau khi train model thành công, triển khai model trên hệ thống Cluster (cụm máy) trên Google Cloud Platform để nhận request từ người dùng
+- Sau khi train model thành công, triển khai model trên hệ thống Cluster (cụm máy) trên Google Cloud Platform để nhận request từ người dùng.
 
 ### b. Các công cụ cần cài đặt sẵn trên hệ điều hành Ubuntu
 - Gcloud CLI
@@ -51,8 +51,30 @@ Mở 1 folder trống bất kỳ trên máy Local bằng VS Code (hoặc IDE kh�
 - requirements.txt
 - note-attention.txt
 - terraform.tf
-## 3. Khởi tạo Cluster (cụm máy) thông qua Terraform
+## **3. Khởi tạo Cluster (cụm máy) trên GCP thông qua Terraform**
 Truy cập vào https://console.cloud.google.com/ và đăng nhập bằng tài khoản Google.  
-Click vào My First Project → New Project.   
-**Tên của Project phải trùng với giá trị Project của phần provider “google” trong file Terraform.**
-<img width="579" height="313" alt="Image" src="https://github.com/user-attachments/assets/b84d9d3e-d6a5-4646-a648-a24b6ace13b1" />
+Click vào My First Project → chọn "New Project" để tạo Project mới.  
+<img width="1033" height="54" alt="Image" src="https://github.com/user-attachments/assets/a61fa180-a3b1-4e5b-8345-9e4d612e2905" />  
+
+**Lưu ý khi điền tên của Project phải trùng với tên Project của phần provider “google” trong file Terraform.**
+<img width="579" height="313" alt="Image" src="https://github.com/user-attachments/assets/b84d9d3e-d6a5-4646-a648-a24b6ace13b1" />  
+
+Tạo xong project, trở lại VS Code, chạy Termianl command sau: ```gcloud auth login``` và chọn tài khoản Google cá nhân.  
+Tạo config cho Gcloud lấy đúng Project: ```gcloud config set project <Tên Project trong file Terraform>```  
+Tạo Application Default Credentials cho Terraform: ```gcloud auth application-default login``` và chọn lại đúng tài khoản Google cá nhân.  
+Khởi động các APIs cần thiết bằng 3 command sau:  
+```gcloud services enable compute.googleapis.com```  
+```gcloud services enable container.googleapis.com```  
+```gcloud services enable storage.googleapis.com```  
+Chạy file Terraform: ```terraform apply```, sau đó chọn "Y".  
+Sau khi chạy xong, truy cập https://console.cloud.google.com/ --> My First Project --> <Tên Project trong file Terraform> --> Kubenetes Engines --> Cluster để kiểm tra    
+<img width="1033" height="539" alt="Image" src="https://github.com/user-attachments/assets/ceffd75e-a224-43be-a3fe-776306e76fb3" />  
+Nếu thấy tên của Cluster trùng với tên Cluster được thiết lập trong file Terraform nghĩa là thành công.  
+<img width="928" height="456" alt="Image" src="https://github.com/user-attachments/assets/2c0ff572-2368-48a4-a709-06a4e47d3897" />  
+<img width="503" height="307" alt="Image" src="https://github.com/user-attachments/assets/fc71fe0a-2b1f-440f-9303-3a46c3e8c655" />  
+
+
+
+
+
+
