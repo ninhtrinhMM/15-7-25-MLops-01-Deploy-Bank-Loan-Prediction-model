@@ -29,8 +29,30 @@
 - Terraform
 - Helm
 ## 2. Chuẩn bị
-
 ### a. Kéo Repo (Kho chứa các file và folder) trên Github về:
 Mở 1 folder trống bất kỳ trên máy Local bằng VS Code (hoặc IDE khác như Trae, Pycharm, Eclipse,..), xong mở Terminal và gõ lần lượt các lệnh sau: 
-```git init```
-```git pull ```
+- ```git init```
+- ```git pull https://github.com/ninhtrinhMM/15-7-25-MLops-01-Deploy-Bank-Loan-Prediction-model```
+- Ngay sau đó toàn bộ Github Repo từ trong link sẽ được tải về máy local.
+### b. Cấu trúc của Github Repo
+- jupyter-notebook-model     ## **Folder chứa file Jupyter-notebook và model được tải về**
+  - ML_DL_Loan_Deal_Classification.ipynb     
+  - model_ml.joblib 
+- prometheus     ## **Folder chứa cấu hình của prometheus và service monitor của Prometheus**
+  - prometheus-values.yaml
+  - service-monitor.yaml
+- tests     ##**Folder chứa file Pytest cho model**
+  - test-py.py
+- compose-jenkins.yaml
+- Dockerfile
+- Jaegar-deployment.yaml
+- Jenkinsfile
+- ML-app.py
+- requirements.txt
+- note-attention.txt
+- terraform.tf
+## 3. Khởi tạo Cluster (cụm máy) thông qua Terraform
+Truy cập vào https://console.cloud.google.com/ và đăng nhập bằng tài khoản Google.  
+Click vào My First Project → New Project.   
+**Tên của Project phải trùng với giá trị Project của phần provider “google” trong file Terraform.**
+<img width="579" height="313" alt="Image" src="https://github.com/user-attachments/assets/b84d9d3e-d6a5-4646-a648-a24b6ace13b1" />
