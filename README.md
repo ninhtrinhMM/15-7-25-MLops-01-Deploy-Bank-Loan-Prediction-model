@@ -84,12 +84,15 @@ Truy cập github.com, tạo tài khoản nếu chưa có và khởi tạo 1 Rep
 
 Trở về VS Code, chạy lệnh: ```git add .``` để add tất cả các Folder hiện tại vào Stageing Area.  
 Chạy lệnh: ```git commit -m <Tên commit>``` để tạo 1 bản ghi Commit mới.  
-Chạy lệnh: ```git remote add origin <Link Github Repo bạn vừa mới tạo>```  để tạo 1 remote tên origin nhằm liên kểt Repo dưới Local (toàn bộ file và folder đang được mở bằng VS Code) với Github Repo của bạn. 
+Chạy lệnh: ```git remote add origin <Link Github Repo bạn vừa mới tạo>``` để tạo 1 remote tên origin nhằm liên kểt Repo dưới Local (toàn bộ file và folder đang được mở bằng VS Code) với Github Repo mới của bạn. 
 Đồng hóa ( Synchronize ) giữa Repo dưới Local với Github repo: ```git push -u origin main```  
 Từ giờ khi có 1 Commit mới được tạo ra thì để đẩy lên Github Repo chỉ cần chạy ```git push```  
 
 ## **5. Thiết lập luồng tự động hóa CI/CD vói Jenkins**
-
+### a. Thiết lập Jenkins ở local  
+Jenkins có vai trò tự động háo trong các bước Test-kiểm, Build và Deploy- Triển khai. Để chạy Jenkins, trước hết đảm bảo về đúng folder chứa Repo local: ```cd ~/<Path>```  
+Chạy compose-jenkins.yaml bằng câu lệnh: ```docker compose -f compose-jenkins.yaml up -d```  
+**Lưu ý:** 
 
 
 
