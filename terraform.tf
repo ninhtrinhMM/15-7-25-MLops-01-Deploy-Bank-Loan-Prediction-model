@@ -49,5 +49,5 @@ resource "google_compute_firewall" "firewall-mlops"{
 		                                             // 5000: port của app
 		                                             // 3000: port của Grafana....		
 	}		
-	source_ranges = ["0.0.0.0/0"]   // allow all trafic				
+	source_ranges = ["0.0.0.0/0"]   // allow all trafic: localhost			
 }					
