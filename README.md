@@ -1,0 +1,98 @@
+# MỤC LỤC
+
+1. [Giới thiệu chung](#1-giới-thiệu-chung)
+2. [Chuẩn bị](#2-chuẩn-bị)
+3. [Khởi tạo Cluster (cụm máy) trên GCP thông qua Terraform](#3-Khởi-tạo-Cluster-(cụm-máy)-trên-GCP-thông-qua-Terraform)
+4. [Khởi tạo Github Repo](#4-Khởi-tạo-Github-Repo)
+5. [Thiết lập luồng tự động hóa CI/CD vói Jenkins](#5-Thiết-lập-luồng-tự-động-hóa-CI/CD-với-Jenkins)
+
+-------
+
+## 1. Giới thiệu tổng quát
+
+### a. Sơ lược về mô hình ML và mục đích triển khai
+- Mô hình Machine Learning trong Github Repo được huấn luyện với bộ dữ liệu chứa 45.000 bản ghi về người đăng ký vay vốn, với nhiều thuộc tính khác nhau liên quan đến:
+  - Thông tin nhân khẩu học cá nhân
+  - Tình hình tài chính
+  - Chi tiết khoản vay
+- Bộ dữ liệu được sử dụng cho:
+  - Mô hình hóa dự đoán
+  - Đánh giá rủi ro tín dụng
+  - Dự đoán khả năng vỡ nợ
+- Mô hình được Data Preprocessing bởi các phương pháp Label Encoding và Standard Scaler.
+- Sau khi train model thành công, triển khai model trên hệ thống Cluster (cụm máy) trên Google Cloud Platform để nhận request từ người dùng.
+
+### b. Các công cụ cần cài đặt sẵn trên hệ điều hành Ubuntu
+- Gcloud CLI
+- Git
+- Kubectl
+- Ngrok
+- Terraform
+- Helm
+## 2. Chuẩn bị
+### a. Kéo Repo (Kho chứa các file và folder) trên Github về:
+Mở 1 folder trống bất kỳ trên máy Local bằng VS Code (hoặc IDE khác như Trae, Pycharm, Eclipse,..), xong mở Terminal trong đó và gõ lần lượt các lệnh sau: 
+- ```git init```
+- ```git pull https://github.com/ninhtrinhMM/15-7-25-MLops-01-Deploy-Bank-Loan-Prediction-model```
+- Ngay sau đó toàn bộ Github Repo từ trong link sẽ được tải về máy local.
+### b. Cấu trúc của Github Repo
+- jupyter-notebook-model     ## **Folder chứa file Jupyter-notebook và model được tải về**
+  - ML_DL_Loan_Deal_Classification.ipynb     
+  - model_ml.joblib 
+- prometheus     ## **Folder chứa cấu hình của prometheus và service monitor của Prometheus**
+  - prometheus-values.yaml
+  - service-monitor.yaml
+- tests     ##**Folder chứa file Pytest cho model**
+  - test-py.py
+- compose-jenkins.yaml
+- Dockerfile
+- Jaegar-deployment.yaml
+- Jenkinsfile
+- ML-app.py
+- requirements.txt
+- note-attention.txt
+- terraform.tf
+## **3. Khởi tạo Cluster (cụm máy) trên GCP thông qua Terraform**
+Truy cập vào https://console.cloud.google.com/ và đăng nhập bằng tài khoản Google.  
+Click vào My First Project → chọn "New Project" để tạo Project mới.  
+<img width="1033" height="54" alt="Image" src="https://github.com/user-attachments/assets/a61fa180-a3b1-4e5b-8345-9e4d612e2905" />  
+
+**Lưu ý khi điền tên của Project phải trùng với tên Project của phần provider “google” trong file Terraform.**
+<img width="579" height="313" alt="Image" src="https://github.com/user-attachments/assets/b84d9d3e-d6a5-4646-a648-a24b6ace13b1" />  
+
+Tạo xong project, trở lại VS Code, chạy Termianl command sau: ```gcloud auth login``` và chọn tài khoản Google cá nhân.  
+Tạo config cho Gcloud lấy đúng Project: ```gcloud config set project <Tên Project trong file Terraform>```  
+Tạo Application Default Credentials cho Terraform: ```gcloud auth application-default login``` và chọn lại đúng tài khoản Google cá nhân.  
+Khởi động các APIs cần thiết bằng 3 command sau:  
+```gcloud services enable compute.googleapis.com```  
+```gcloud services enable container.googleapis.com```  
+```gcloud services enable storage.googleapis.com```  
+Chạy các lệnh sau để kiểm tra Terraform đã sẵn sàng và syntax trong file Terraform chưa:  
+```terraform init```  
+```terraform plan```  
+Chạy file Terraform: ```terraform apply```, sau đó chọn "Y".  
+Sau khi chạy xong, truy cập https://console.cloud.google.com/ --> My First Project --> <Tên Project trong file Terraform> --> Kubenetes Engines --> Cluster để kiểm tra    
+<img width="1033" height="539" alt="Image" src="https://github.com/user-attachments/assets/ceffd75e-a224-43be-a3fe-776306e76fb3" />  
+
+Nếu thấy tên của Cluster trùng với tên Cluster được thiết lập trong file Terraform nghĩa là thành công tạo 1 cụm máy Cluster, bên trong có 3 máy ảo VM Instance có cấu hình là E2 Medium.  
+<img width="928" height="456" alt="Image" src="https://github.com/user-attachments/assets/2c0ff572-2368-48a4-a709-06a4e47d3897" />  
+<img width="503" height="307" alt="Image" src="https://github.com/user-attachments/assets/fc71fe0a-2b1f-440f-9303-3a46c3e8c655" />  
+
+## **4. Khởi tạo Github Repo**  
+Truy cập github.com, tạo tài khoản nếu chưa có và khởi tạo 1 Repository ( Kho lưu trữ các file ) mới, điền Repository Name và để ở chế độ **PUBLIC**.    
+<img width="327" height="148" alt="Image" src="https://github.com/user-attachments/assets/8c25622d-d712-48f0-ab1d-3edbbfc86ed6" />  
+
+Trở về VS Code, chạy lệnh: ```git add .``` để add tất cả các Folder hiện tại vào Stageing Area.  
+Chạy lệnh: ```git commit -m <Tên commit>``` để tạo 1 bản ghi Commit mới.  
+Chạy lệnh: ```git remote add origin <Link Github Repo bạn vừa mới tạo>```  để tạo 1 remote tên origin nhằm liên kểt Repo dưới Local (toàn bộ file và folder đang được mở bằng VS Code) với Github Repo của bạn. 
+Đồng hóa ( Synchronize ) giữa Repo dưới Local với Github repo: ```git push -u origin main```  
+Từ giờ khi có 1 Commit mới được tạo ra thì để đẩy lên Github Repo chỉ cần chạy ```git push```  
+
+## **5. Thiết lập luồng tự động hóa CI/CD vói Jenkins**
+
+
+
+
+
+
+
