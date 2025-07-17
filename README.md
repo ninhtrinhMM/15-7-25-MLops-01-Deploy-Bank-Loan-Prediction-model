@@ -97,7 +97,7 @@ Jenkins có vai trò tự động hóa trong các bước Test-kiểm, Build và
 Chạy compose-jenkins.yaml bằng câu lệnh: ```docker compose -f compose-jenkins.yaml up -d```  
 Khi docker compose đang chạy, sẽ hiện ra Password như sau dùng để đăng nhập Jenkins, copy và lưu lại. Nếu không hiển thị như trong ảnh trên, vào Container Jenkins bằng command sau: ```docker logs jenkins```  
 
-<img width="975" height="261" alt="Image" src="https://github.com/user-attachments/assets/41d11a59-dac8-4782-9376-3b9eff3b3479" />
+<img width="942" height="294" alt="Image" src="https://github.com/user-attachments/assets/e7c59994-f456-45a3-8ce3-f5c76e4811cf" />
 
 
 
