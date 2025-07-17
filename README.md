@@ -107,10 +107,14 @@ Tiếp theo chọn Install Suggested Plugin ( Sử dụng hệ điều hành Ubu
 
 <img width="882" height="566" alt="Image" src="https://github.com/user-attachments/assets/d7265985-f2f1-406e-83d5-6c42744615b9" />  
 
-Sau khi cài đặt các Plugin đề xuất xong, Popup đăng ký tên và password hiện lên, chúng chọn Skip as admin.  
+Sau khi cài đặt các Plugin đề xuất xong, Popup đăng ký tên và password hiện lên, chọn Skip as admin.  
 
 <img width="892" height="576" alt="Image" src="https://github.com/user-attachments/assets/02ced131-6847-4297-9fab-af60dd94ed83" />  
 
 Xong chọn Save and Finish --> Start using Jenkins.  
 
-<img width="882" height="332" alt="Image" src="https://github.com/user-attachments/assets/3ef433bf-52c8-4368-b094-3f6b1a8f897a" />
+<img width="882" height="332" alt="Image" src="https://github.com/user-attachments/assets/3ef433bf-52c8-4368-b094-3f6b1a8f897a" />   
+
+Đăng nhập Jenkins thành công.  
+
+<img width="1289" height="558" alt="Image" src="https://github.com/user-attachments/assets/e0b9eb2c-c083-4ac0-9d20-448c1eca6af6" />  
