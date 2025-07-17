@@ -164,7 +164,7 @@ Hoàn thành Add Webhook API của Jenkins cho Github. Mở 1 Terminal mới ở
 
 <img width="1000" height="402" alt="Image" src="https://github.com/user-attachments/assets/042522c2-a6ac-4400-b0cd-cf41c644e7c2" />  
 
-## **6. Thiết lập luồng tự động CI/CD Jenkins**  
+## **6. Kết nối Jenkins với các platform khác**  
 ### a. Lấy Github Access Token và Dockerhub Access Token:  
 Jenkins cần có Github Access Token để có thể trigger (nhận biết) vào từng Branch (nhánh) của Github để nhận biết Jenkinsfile và Dockerhub Access Token để truy cập vào Dockerhub. Trước hết lấy Github Access Token bằng cách click vào Avatar Github --> Setting --> Developer Settings
 
@@ -209,7 +209,11 @@ Bảng New Credential hiện lên, lần lượt điền các thông tin như sa
 
 <img width="1189" height="607" alt="Image" src="https://github.com/user-attachments/assets/a2b1767f-6c03-470f-80ff-d59935849c02" />  
 
-XOng ấn "Create" để tạo Dockerhub Credential. Trở lại Manage Jenkins/Credential và thấy Credential hiện lên nhưu trong hình dưới nghĩa là tạo thành công.  
+XOng ấn "Create" để tạo Dockerhub Credential. Trở lại Manage Jenkins/Credential và thấy Credential hiện lên như trong hình dưới nghĩa là tạo thành công.  
 
 <img width="1111" height="368" alt="Image" src="https://github.com/user-attachments/assets/2f5236d0-007a-4c72-ab9e-7d26195077d2" />  
 
+### c. Kết nối Jenkins với GCP Cluster:  
+Để Jenkins có thể truy cập vào chính xác cụm máy Cluster mà chúng ta tạo ở mục 3, trở về trang chủ Jenkins --> Manage Jenkins --> Clouds --> New Cloud. Sau đó điền tên cho Cloud và chọn type là Kubenetes.  
+
+<img width="896" height="353" alt="Image" src="https://github.com/user-attachments/assets/af5bac3e-d569-46f2-8d00-ec024cab129f" />  
