@@ -118,3 +118,7 @@ Xong chọn Save and Finish --> Start using Jenkins.
 Đăng nhập Jenkins thành công với tên tài khoản là admin, password đã được lưu. 
 
 <img width="1289" height="558" alt="Image" src="https://github.com/user-attachments/assets/e0b9eb2c-c083-4ac0-9d20-448c1eca6af6" />  
+
+Vào Manage Jenkins --> Plugin --> Availabale Plugins và search rồi cài đặt các Plugin cần thiết như: **Docker, Docker Pipeline**    
+
+<img width="1271" height="421" alt="Image" src="https://github.com/user-attachments/assets/bf144381-0475-4a59-94a2-15eebd990bd7" />  
