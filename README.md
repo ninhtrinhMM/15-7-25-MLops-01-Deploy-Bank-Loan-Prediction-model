@@ -66,7 +66,7 @@ Khởi động các APIs cần thiết bằng 3 command sau:
 ```gcloud services enable compute.googleapis.com```  
 ```gcloud services enable container.googleapis.com```  
 ```gcloud services enable storage.googleapis.com```  
-Chạy các lệnh sau để kiểm tra Terraform đã thích ứng với OS và syntax trong file Terraform chưa:  
+Chạy các lệnh sau để kiểm tra Terraform đã sẵn sàng và syntax trong file Terraform chưa:  
 ```terraform init```  
 ```terraform plan```  
 Chạy file Terraform: ```terraform apply```, sau đó chọn "Y".  
