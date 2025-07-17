@@ -144,7 +144,13 @@ Xong khu vực Terminal sẽ hiển thị giao diện như sau:
 <img width="818" height="319" alt="Image" src="https://github.com/user-attachments/assets/9ef74fc9-90ff-409d-92f1-bc352edc9736" />
 
 Đoạn khoanh đỏ trong hình chính là địa chỉ web kết nối trực tiếp ( Tạo thành 1 "đường hầm" ) với Jenkins ở máy local, thay vì truy cập vào localhost:8081, chúng ta có thể truy cập Jenkins thông qua địa chỉ web này. Tiến hành copy địa chỉ web trên.  
-Trở lại Github Repo, 
+Trở lại Github Repo, chọn Setting  
+
+<img width="838" height="143" alt="Image" src="https://github.com/user-attachments/assets/d2ad92ba-e844-42de-9923-96dbab305f42" />  
+
+Chọn Webhhok  
+
+<img width="1059" height="563" alt="Image" src="https://github.com/user-attachments/assets/2fa0e13e-911c-475b-b3f4-fa9ef0953b0b" />  
 
 
 
