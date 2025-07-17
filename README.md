@@ -88,7 +88,7 @@ Chạy lệnh: ```git remote add origin <Link Github Repo bạn vừa mới tạ
 Đồng hóa ( Synchronize ) giữa Repo dưới Local với Github repo: ```git push -u origin main```  
 Từ giờ khi có 1 Commit mới được tạo ra thì để đẩy lên Github Repo chỉ cần chạy ```git push```  
 
-## **5. Thiết lập luồng tự động hóa CI/CD vói Jenkins **
+## **5. Thiết lập luồng tự động hóa CI/CD vói Jenkins**
 
 
 
