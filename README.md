@@ -92,7 +92,7 @@ Từ giờ khi có 1 Commit mới được tạo ra thì để đẩy lên Githu
 ### a. Thiết lập Jenkins ở local  
 Jenkins có vai trò tự động háo trong các bước Test-kiểm, Build và Deploy- Triển khai. Để chạy Jenkins, trước hết đảm bảo về đúng folder chứa Repo local: ```cd ~/<Path>```  
 Chạy compose-jenkins.yaml bằng câu lệnh: ```docker compose -f compose-jenkins.yaml up -d```  
-**Lưu ý:** 
+Khi docker compose đang chạy, sẽ hiện ra Password dùng để đăng nhập Jenkins, copy và lưu lại.  
 
 
 
