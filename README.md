@@ -206,6 +206,7 @@ Bảng New Credential hiện lên, lần lượt điền các thông tin như sa
 1. Điền User name cho Credential này.  
 2. Password chính là Dockerhub Access Token vừa nãy lưu.
 3. Điền ID cho Credential, ID này dùng để xác định chính xác Credential nào Jenkins sẽ sử dụng.
+
 <img width="1189" height="607" alt="Image" src="https://github.com/user-attachments/assets/a2b1767f-6c03-470f-80ff-d59935849c02" />
 
 XOng ấn "Create" để tạo Dockerhub Credential.   
