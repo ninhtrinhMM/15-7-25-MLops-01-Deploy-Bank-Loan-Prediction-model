@@ -191,8 +191,8 @@ Hoàn thành xong kéo xuống nhấn "Generate Token" để tạo Github Access
 
 <img width="591" height="529" alt="Image" src="https://github.com/user-attachments/assets/918fa120-da57-4810-aeda-0b4a37c12675" />  
 
-### b. Tạo Dockerhub Credential cho Jenkins:  
-Để Jenkins có thể truy cập vào Dockerhub thực hiện các tác vụ, chúng ta cần thêm Docker Credetial cho Jenkins.  
+### b. Kết nối Jenkins với Dockerhub:  
+Để Jenkins có thể truy cập vào Dockerhub thực hiện các tác vụ, chúng ta cần tạo 1 Credetial mới để Jenkins có thể truy cập vào Dockerhub.  
 Truy cập vào localhost:8081, chọn Manage Jenkins --> Credential --> Click vào "system"  
 
 <img width="856" height="320" alt="Image" src="https://github.com/user-attachments/assets/0b48619b-f67c-46c4-86e1-abebd9fffd8e" />  
@@ -218,6 +218,9 @@ XOng ấn "Create" để tạo Dockerhub Credential. Trở lại Manage Jenkins/
 
 <img width="896" height="353" alt="Image" src="https://github.com/user-attachments/assets/af5bac3e-d569-46f2-8d00-ec024cab129f" />  
 
-Bảng New Cloud hiện lên, để lấy được Kubenetes URL và Kubernetes server certificate key làm các bước sau:  
+Bảng New Cloud hiện lên, để lấy được thông tin Kubenetes URL và Kubernetes server certificate key làm các bước sau:  
 
-<img width="896" height="492" alt="Image" src="https://github.com/user-attachments/assets/9439347c-5ab5-422c-aeb8-5d777a9a0c4c" />
+<img width="1067" height="444" alt="Image" src="https://github.com/user-attachments/assets/2f34d07a-594e-49fc-804b-bf2cf631d3d0" />   
+
+   #### c.1. Kubenetes URL:  
+
