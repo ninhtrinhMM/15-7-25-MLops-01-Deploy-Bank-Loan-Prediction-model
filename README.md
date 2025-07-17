@@ -93,14 +93,14 @@ Từ giờ khi có 1 Commit mới được tạo ra thì để đẩy lên Githu
 
 ## **5. Thiết lập luồng tự động hóa CI/CD vói Jenkins**
 ### a. Thiết lập Jenkins ở local  
-Jenkins có vai trò tự động hóa trong các bước Test-kiểm, Build và Deploy- Triển khai. Để chạy Jenkins, trước hết đảm bảo về đúng folder chứa Repo local: ```cd ~/<Path>```  
+Jenkins có vai trò tự động hóa trong các bước Test-kiểm, Build và Deploy- Triển khai. Để chạy Jenkins, trước hết đảm bảo về đúng folder chứa Repo local: ```cd ~/<Path Repo Local>```  
 Chạy compose-jenkins.yaml bằng câu lệnh: ```docker compose -f compose-jenkins.yaml up -d```  
 Khi docker compose đang chạy, sẽ hiện ra Password như sau dùng để đăng nhập Jenkins, copy và lưu lại. Nếu không hiển thị như trong ảnh trên, vào Container Jenkins bằng command sau: ```docker logs jenkins```  để thấy được password
 
 <img width="942" height="294" alt="Image" src="https://github.com/user-attachments/assets/e7c59994-f456-45a3-8ce3-f5c76e4811cf" />
 
-Tiếp theo truy cập vào Jenkins bằng cách vào http://localhost:8081
-
+Tiếp theo truy cập vào Jenkins bằng cách vào http://localhost:8081 và nhập Passwprd ban nãy xong chọn COntinue
+<img width="882" height="566" alt="Image" src="https://github.com/user-attachments/assets/10c339e0-48f0-462d-a9e1-04bb5399ab22" />
 
 
 
