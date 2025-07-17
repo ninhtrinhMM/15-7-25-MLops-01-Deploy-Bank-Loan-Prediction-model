@@ -4,6 +4,7 @@
 2. [Chuẩn bị](#2-chuẩn-bị)
 3. [Khởi tạo Cluster (cụm máy) trên GCP thông qua Terraform](#3-Khởi-tạo-Cluster-(cụm-máy)-trên-GCP-thông-qua-Terraform)
 4. [Khởi tạo Github Repo](#4-Khởi-tạo-Github-Repo)
+5. [Thiết lập luồng tự động hóa CI/CD vói Jenkins](#5-Thiết-lập-luồng-tự-động-hóa-CI/CD-với-Jenkins)
 
 -------
 
@@ -86,6 +87,8 @@ Chạy lệnh: ```git commit -m <Tên commit>``` để tạo 1 bản ghi Commit 
 Chạy lệnh: ```git remote add origin <Link Github Repo bạn vừa mới tạo>```  để tạo 1 remote tên origin nhằm liên kểt Repo dưới Local (toàn bộ file và folder đang được mở bằng VS Code) với Github Repo của bạn. 
 Đồng hóa ( Synchronize ) giữa Repo dưới Local với Github repo: ```git push -u origin main```  
 Từ giờ khi có 1 Commit mới được tạo ra thì để đẩy lên Github Repo chỉ cần chạy ```git push```  
+
+## **5. Thiết lập luồng tự động hóa CI/CD vói Jenkins **
 
 
 
