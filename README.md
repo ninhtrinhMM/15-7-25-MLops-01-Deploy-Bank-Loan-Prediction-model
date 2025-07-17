@@ -72,13 +72,15 @@ Chạy các lệnh sau để kiểm tra Terraform đã sẵn sàng và syntax tr
 Chạy file Terraform: ```terraform apply```, sau đó chọn "Y".  
 Sau khi chạy xong, truy cập https://console.cloud.google.com/ --> My First Project --> <Tên Project trong file Terraform> --> Kubenetes Engines --> Cluster để kiểm tra    
 <img width="1033" height="539" alt="Image" src="https://github.com/user-attachments/assets/ceffd75e-a224-43be-a3fe-776306e76fb3" />  
-Nếu thấy tên của Cluster trùng với tên Cluster được thiết lập trong file Terraform nghĩa là thành công.  
+
+Nếu thấy tên của Cluster trùng với tên Cluster được thiết lập trong file Terraform nghĩa là thành công tạo 1 cụm máy Cluster, bên trong có 3 máy ảo VM Instance có cấu hình là E2 Medium.  
 <img width="928" height="456" alt="Image" src="https://github.com/user-attachments/assets/2c0ff572-2368-48a4-a709-06a4e47d3897" />  
 <img width="503" height="307" alt="Image" src="https://github.com/user-attachments/assets/fc71fe0a-2b1f-440f-9303-3a46c3e8c655" />  
 
 ## **4. Khởi tạo Github Repo**  
 Truy cập github.com, tạo tài khoản nếu chưa có và khởi tạo 1 Repository ( Kho lưu trữ các file ) mới, điền Repository Name và để ở chế độ **PUBLIC**.    
 <img width="327" height="148" alt="Image" src="https://github.com/user-attachments/assets/8c25622d-d712-48f0-ab1d-3edbbfc86ed6" />  
+
 Trở về VS Code, chạy lệnh: ```git add .``` để add tất cả các Folder hiện tại vào Stageing Area.  
 Chạy lệnh: ```git commit -m <Tên commit>``` để tạo 1 bản ghi Commit mới.  
 Chạy lệnh: ```git remote add origin <Link Github Repo bạn vừa mới tạo>```  để tạo 1 remote tên origin nhằm liên kểt Repo dưới Local (toàn bộ file và folder đang được mở bằng VS Code) với Github Repo của bạn. 
