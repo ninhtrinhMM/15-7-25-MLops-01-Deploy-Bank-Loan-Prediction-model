@@ -193,4 +193,10 @@ Hoàn thành xong kéo xuống nhấn "Generate Token" để tạo Github Access
 
 ### b. Tạo Docker Credential cho Jenkins:  
 Để Jenkins có thể truy cập vào Dockerhub thực hiện các tác vụ, chúng ta cần thêm Docker Credetial cho Jenkins.  
-Truy cập vào localhost:8081, chọn Manage Jenkins, 
+Truy cập vào localhost:8081, chọn Manage Jenkins --> Credential --> Click vào "system"  
+
+<img width="856" height="320" alt="Image" src="https://github.com/user-attachments/assets/0b48619b-f67c-46c4-86e1-abebd9fffd8e" />  
+
+Xong chọn tiếp "Global credentials (unrestricted)" --> Add Credentials  
+
+<img width="1043" height="212" alt="Image" src="https://github.com/user-attachments/assets/1916705f-9912-4781-8ef6-10552e6385d8" />  
