@@ -13,8 +13,6 @@ services:
     volumes:
       - jenkins_home_2:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
-      # /var/run/docker.sock bên tay trái : là đường dẫn trên máy chủ Docker
-      # /var/run/docker.sock bên tay phải : là đường dẫn trong container Jenkins
 
 volumes:
   jenkins_home_2:
