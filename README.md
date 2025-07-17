@@ -209,4 +209,6 @@ Bảng New Credential hiện lên, lần lượt điền các thông tin như sa
 
 <img width="1189" height="607" alt="Image" src="https://github.com/user-attachments/assets/a2b1767f-6c03-470f-80ff-d59935849c02" />
 
-XOng ấn "Create" để tạo Dockerhub Credential.   
+XOng ấn "Create" để tạo Dockerhub Credential. Trở lại Manage Jenkins/Credential và thấy Credential hiện lên nhưu trong hình dưới nghĩa là tạo thành công.  
+
+<img width="1111" height="368" alt="Image" src="https://github.com/user-attachments/assets/2f5236d0-007a-4c72-ab9e-7d26195077d2" />
