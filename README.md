@@ -143,7 +143,8 @@ Xong khu vực Terminal sẽ hiển thị giao diện như sau:
 
 <img width="818" height="319" alt="Image" src="https://github.com/user-attachments/assets/9ef74fc9-90ff-409d-92f1-bc352edc9736" />
 
-Đoạn Page trong hình chính là địa chỉ web kết nối trực tiếp ( Tạo thành 1 "đường hầm" ) với Jenkins ở máy local, thay vì truy cập vào localhost:8081, chúng ta có thể truy cập Jenkins thông qua địa chỉ web này. Tiến hành copy địa chỉ web. 
+Đoạn khoanh đỏ trong hình chính là địa chỉ web kết nối trực tiếp ( Tạo thành 1 "đường hầm" ) với Jenkins ở máy local, thay vì truy cập vào localhost:8081, chúng ta có thể truy cập Jenkins thông qua địa chỉ web này. Tiến hành copy địa chỉ web trên.  
+Trở lại Github Repo, 
 
 
 
