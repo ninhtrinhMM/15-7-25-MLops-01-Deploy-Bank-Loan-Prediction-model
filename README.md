@@ -200,3 +200,4 @@ Truy cập vào localhost:8081, chọn Manage Jenkins --> Credential --> Click v
 Xong chọn tiếp "Global credentials (unrestricted)" --> Add Credentials  
 
 <img width="1043" height="212" alt="Image" src="https://github.com/user-attachments/assets/1916705f-9912-4781-8ef6-10552e6385d8" />  
+<img width="1201" height="227" alt="Image" src="https://github.com/user-attachments/assets/8f1f2e00-481d-4182-aa15-847c6df9a367" />
