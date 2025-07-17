@@ -131,8 +131,8 @@ Vào Manage Jenkins --> Plugin --> Availabale Plugins và search rồi cài đ�
 <img width="931" height="406" alt="Image" src="https://github.com/user-attachments/assets/734fa365-3b66-4b4c-8a2f-dac1a4b1b5cd" />  
 
 ### b. Kết nối Github Repo với Jenkins:  
-**Trước hết cần kết nối Github Repo với Jenkins để mỗi lần Github Repo được đẩy Commit mới hoặc tạo Branch (nhánh) mới thì Jenkins có thể nhận biết được và triển khai luồng CI/CD. Chúng ta sử dụng công cụ Ngrok.  
-Truy cập page https://dashboard.ngrok.com/ và đăng nhập (tạo tài khoản nếu chưa có). Sau đó vào "Your Authtoken", chúng ta sẽ thấy token authen và copy đoạn mã token này.   
+**Trước hết cần kết nối Github Repo với Jenkins để mỗi lần Github Repo được đẩy Commit mới hoặc tạo Branch (nhánh) mới thì Jenkins có thể nhận biết được và triển khai luồng CI/CD. Chúng ta sử dụng Webhook API.  
+Trước hết sử dụng công cụ Ngrok để tạo 1 đường hầm Pubic cho Jenkins dưới Local. Truy cập page https://dashboard.ngrok.com/ và đăng nhập (tạo tài khoản nếu chưa có). Sau đó vào "Your Authtoken", chúng ta sẽ thấy token authen và copy đoạn mã token này.   
 
 <img width="894" height="439" alt="Image" src="https://github.com/user-attachments/assets/2674bf58-6d92-496a-8360-035b2ef19c67" />  
 <img width="692" height="167" alt="Image" src="https://github.com/user-attachments/assets/f2ff36a0-66a7-403f-8520-3a5760419540" />  
@@ -159,4 +159,6 @@ Giao diện Add Webhook hiện ra, phần Payload URL* điền link địa chỉ
 Phần Which events would you like to trigger this webhook? chọn "Let me select individual events." và tích chọn Push và Pull request để Jenkins nhận biết 2 dạng sự kiện thay đổi này từ Github. Xong kéo xuống chọn "Add Webhook"  
 
 <img width="609" height="397" alt="Image" src="https://github.com/user-attachments/assets/ce9cf452-736c-4ee0-8abc-5a23f380489a" />  
+
+Hoàn thành Add Webhook API của Jenkins cho Github. Mở 1 Terminal mới ở VS Code, thử nghiệm tạo 1 commit mới dưới Repo Local và đẩy commit đó lên Github Repo. Nếu thấy tích xanh nghĩa là Webhook API đã hoạt động tốt.  
 
