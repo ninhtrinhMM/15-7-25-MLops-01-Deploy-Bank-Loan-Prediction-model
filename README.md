@@ -223,4 +223,4 @@ Bảng New Cloud hiện lên, để lấy được thông tin Kubenetes URL và 
 <img width="1067" height="444" alt="Image" src="https://github.com/user-attachments/assets/2f34d07a-594e-49fc-804b-bf2cf631d3d0" />   
 
    #### *c.1. Kubenetes URL:*  
-
+Truy cạp lại https://console.cloud.google.com/ --> Chọn đúng Project 
