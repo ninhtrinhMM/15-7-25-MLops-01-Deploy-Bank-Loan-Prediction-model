@@ -99,9 +99,12 @@ Khi docker compose đang chạy, sẽ hiện ra Password như sau dùng để đ
 
 <img width="942" height="294" alt="Image" src="https://github.com/user-attachments/assets/e7c59994-f456-45a3-8ce3-f5c76e4811cf" />
 
-Tiếp theo truy cập vào Jenkins bằng cách vào http://localhost:8081 và nhập Passwprd ban nãy xong chọn COntinue
+Tiếp theo truy cập vào Jenkins bằng cách vào http://localhost:8081 và nhập Passwprd ban nãy xong chọn COntinue  
+
 <img width="882" height="566" alt="Image" src="https://github.com/user-attachments/assets/10c339e0-48f0-462d-a9e1-04bb5399ab22" />
 
+Tiếp theo chọn Install Suggested Plugin ( Sử dụng hệ điều hành Ubuntu sẽ đỡ dính fail cài đặt hơn là Windown ) và chờ cài đặt hoàn tất  
 
+<img width="882" height="566" alt="Image" src="https://github.com/user-attachments/assets/d7265985-f2f1-406e-83d5-6c42744615b9" />
 
 
