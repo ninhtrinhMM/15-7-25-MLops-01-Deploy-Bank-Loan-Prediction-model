@@ -20,7 +20,7 @@
   - Đánh giá rủi ro tín dụng
   - Dự đoán khả năng vỡ nợ
 - Mô hình được Data Preprocessing bởi các phương pháp Label Encoding, Standard Scaler và sử dụng phương pháp GridsearchCV để tìm ra Hyper Parameter tốt nhát cho model. Kết quả là model đạt được Metric Accuracy lên đến 93%.  
-- Sau khi train model thành công, triển khai model trên hệ thống Cluster (cụm máy) trên Google Cloud Platform để nhận request từ người dùng.
+- Sau khi train model thành công, chúng ta triển khai model trên hệ thống Cluster (cụm máy) trên Google Cloud Platform, vận hành và xây dựng bởi luồng CI/CD Jenkins tự động tích hợp với Cloud K8S để nhận request từ người dùng.
 
 ### b. Các công cụ cần cài đặt sẵn trên hệ điều hành Ubuntu
 - Gcloud CLI
