@@ -105,6 +105,10 @@ Tiếp theo truy cập vào Jenkins bằng cách vào http://localhost:8081 và 
 
 Tiếp theo chọn Install Suggested Plugin ( Sử dụng hệ điều hành Ubuntu sẽ đỡ dính fail cài đặt hơn là Windown ) và chờ cài đặt hoàn tất  
 
-<img width="882" height="566" alt="Image" src="https://github.com/user-attachments/assets/d7265985-f2f1-406e-83d5-6c42744615b9" />
+<img width="882" height="566" alt="Image" src="https://github.com/user-attachments/assets/d7265985-f2f1-406e-83d5-6c42744615b9" />  
+
+Sau khi cài đặt các Plugin đề xuất xong, Popup đăng ký tên và password hiện lên, chúng chọn Skip as admin.  
+
+<img width="892" height="576" alt="Image" src="https://github.com/user-attachments/assets/02ced131-6847-4297-9fab-af60dd94ed83" />
 
 
