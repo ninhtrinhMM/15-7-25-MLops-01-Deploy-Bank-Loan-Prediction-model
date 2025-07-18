@@ -153,7 +153,8 @@ Vào Manage Jenkins --> Plugin --> Availabale Plugins và search rồi cài đ�
 <img width="931" height="406" alt="Image" src="https://github.com/user-attachments/assets/734fa365-3b66-4b4c-8a2f-dac1a4b1b5cd" />  
 
 ### b. Kết nối Github Repo với Jenkins:  
-**Trước hết cần kết nối Github Repo với Jenkins để mỗi lần Github Repo được đẩy Commit mới hoặc tạo Branch (nhánh) mới thì Jenkins có thể nhận biết được và triển khai luồng CI/CD. Chúng ta sử dụng Webhook API.  
+
+Trước hết cần kết nối Github Repo với Jenkins để mỗi lần Github Repo được đẩy Commit mới hoặc tạo Branch (nhánh) mới thì Jenkins có thể nhận biết được và triển khai luồng CI/CD. Chúng ta sử dụng Webhook API.  
 Trước hết sử dụng công cụ Ngrok để tạo 1 đường hầm Pubic cho Jenkins dưới Local. Truy cập page https://dashboard.ngrok.com/ và đăng nhập (tạo tài khoản nếu chưa có). Sau đó vào "Your Authtoken", chúng ta sẽ thấy token authen và copy đoạn mã token này.   
 
 <img width="894" height="439" alt="Image" src="https://github.com/user-attachments/assets/2674bf58-6d92-496a-8360-035b2ef19c67" />  
