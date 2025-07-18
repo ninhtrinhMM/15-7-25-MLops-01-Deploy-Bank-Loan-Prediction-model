@@ -252,5 +252,13 @@ Copy và Paste vào vị trí Kubernetes server certificate key của giao diệ
 
 <img width="1184" height="449" alt="Image" src="https://github.com/user-attachments/assets/7b527167-07ff-4634-bf99-488591d3aebd" />  
 
-Xong kéo cuống và án thử "Test connection" để xem Jenkins đã kết nối tới Cluster hay chưa.  
+ #### *c.3. Add Credential:*  
+Để tạo Credential cho Jenkins Cloud kết nối tới Cluster, đầu tiên tạo Service Account tên là jenkins-sa, để  
+```kubectl create serviceaccount jenkins-sa -n default```  
+Tiếp theo tạo Cluster Role Binding  
+```kubectl create clusterrolebinding jenkins-sa-binding \--clusterrole=cluster-admin \--serviceaccount=default:jenkins-sa```  
+Kiểm tra bằng lệnh ```kubectl get serviceaccount jenkins-sa -n default```. Nếu thấy hiển thị như trong hình thì nghĩa là tạo thành công.  
 
+<img width="959" height="131" alt="Image" src="https://github.com/user-attachments/assets/f8ae73c4-4f21-4999-bf65-e235e472c4ea" />  
+
+Tiếp theo 
