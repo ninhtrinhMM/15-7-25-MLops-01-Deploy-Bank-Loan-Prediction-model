@@ -305,7 +305,26 @@ Trở vè trang chủ Jenkins, chọn New Item.
 
 <img width="898" height="550" alt="Image" src="https://github.com/user-attachments/assets/1d26b847-bbdf-4626-b194-1b54c217f18d" />  
 
-Giao diện General hiện lên. Điền tên Display Name, đây là tên hiển thị của luồng CI/CD.  
+Giao diện General hiện lên. Điền tên Display Name, đây sẽ là tên hiển thị của luồng CI/CD.  
 Kéo xuống ở phần Branch Source chọn Github, để Jenkins có thể xét toàn bộ các nhánh của Github Repo.  
 
 <img width="897" height="486" alt="Image" src="https://github.com/user-attachments/assets/4dc4d976-37b0-46d6-92b4-3a374aa059eb" />  
+
+Lập tức Github Credential hiện lên, chọn Add --> Chọn đúng tên Pipeline setup ban đầu.  
+
+<img width="930" height="472" alt="Image" src="https://github.com/user-attachments/assets/dedac827-6b70-48f1-978f-25a60eb66b13" />  
+
+Bảng Add Credential hiện lên. Điền các thông tin lần lượt như sau: 
+1. Điền User name.             
+2. Điền Github Access Token vào.  
+3. Điền ID để quản lý.
+
+<img width="963" height="491" alt="Image" src="https://github.com/user-attachments/assets/de53b89d-49c4-450d-a9ae-4c222b94021f" />  
+
+Hoàn thiện xong nhấn Add. Quay trở lại giao diện Github Credential chọn đúng ID Credential vừa tạo. Ở mục Repository HTTPS URL dán link của Github Repo vào. Xong ấn Validate để kiểm tra kết nối. Hiển thị "Credential OK" nghĩa là kết nối giữa Jenkins và Github Repo đã thành công. Xong nhấn   
+
+<img width="888" height="406" alt="Image" src="https://github.com/user-attachments/assets/db62c007-64c7-4b46-a188-48b1242a1db7" />  
+
+
+
+
