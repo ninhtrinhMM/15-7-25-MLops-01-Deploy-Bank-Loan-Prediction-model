@@ -261,4 +261,7 @@ Kiểm tra bằng lệnh ```kubectl get serviceaccount jenkins-sa -n default```.
 
 <img width="959" height="131" alt="Image" src="https://github.com/user-attachments/assets/f8ae73c4-4f21-4999-bf65-e235e472c4ea" />  
 
-Tiếp theo 
+Tiếp theo chạy file jenkins-sa.yaml bằng lệnh: ```kubectl apply -f jenkins-sa.yaml``` để  
+
+Chạy commands au đẻ lấy Token  
+```kubectl get secret jenkins-sa-token -n default -o jsonpath='{.data.token}' | base64 -d```
