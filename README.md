@@ -274,7 +274,7 @@ Quay trở lại chỗ Credential và chọn đúng ID của Credential vừa t�
 
 ## **7. Khởi tạo luồng CI/CD Jenkins**  
 
-###a. Lấy Github Access Token:  
+### a. Lấy Github Access Token:  
 
 Jenkins cần có Github Access Token để có thể trigger (nhận biết) vào từng Branch (nhánh) của Github để nhận biết Jenkinsfile và Dockerhub Access Token để truy cập vào Dockerhub. Trước hết lấy Github Access Token bằng cách click vào Avatar Github --> Setting --> Developer Settings
 
