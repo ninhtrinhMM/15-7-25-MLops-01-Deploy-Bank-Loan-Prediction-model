@@ -348,6 +348,9 @@ Hoàn thiện xong nhấn Add. Quay trở lại giao diện Github Credential ch
 <img width="888" height="406" alt="Image" src="https://github.com/user-attachments/assets/db62c007-64c7-4b46-a188-48b1242a1db7" />  
 
 Xong nhấn "Save" để hoàn thiện xây dựng luồng CI/CD. Ngay khi ấn Save xong Jenkins sẽ quyét toàn bộ Github Repo, ở nhánh nào nếu có file Jenkinsfile thì Jenkins sẽ thực hiện các Stage và Step ( các giai đoạn và các bước ) đúng như trong file Jenkinsfile đề ra.  
+Như trong hình, Jenkins đã quét ra được 1 file Jenkinsfile ở nhánh Main trong Github Repo.  
+
+<img width="682" height="524" alt="Image" src="https://github.com/user-attachments/assets/dc6eee33-77e1-4008-ad8e-d2da6754adcc" />  
 
 
 
