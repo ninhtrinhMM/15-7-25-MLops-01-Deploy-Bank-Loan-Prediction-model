@@ -1,8 +1,5 @@
 pipeline {
-    agent {
-        label 'docker' 
-    }
-    
+    agent any
     
     options {
         buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
@@ -41,37 +38,7 @@ pipeline {
             }
         }
         
-        stage('Install Docker') {
-            when {
-                expression { 
-                    return sh(script: 'which docker', returnStatus: true) != 0
-                }
-            }
-            steps {
-                script {
-                    echo 'Docker not found - attempting to install..'
-                    sh '''
-                        # Update package manager
-                        apt-get update || yum update -y || apk update || true
-                        
-                        # Install Docker
-                        apt-get install -y docker.io || \
-                        yum install -y docker || \
-                        apk add --no-cache docker || \
-                        echo "Failed to install Docker"
-                        
-                        # Start Docker service
-                        systemctl start docker || service docker start || true
-                        
-                        # Add jenkins user to docker group
-                        usermod -aG docker jenkins || true
-                        
-                        # Verify installation
-                        docker --version || echo "Docker installation failed"
-                    '''
-                }
-            }
-        }
+        
         
         stage('Test with Docker') {
             agent {
