@@ -223,7 +223,7 @@ Copy dãy Certificate và paste vào phần Kubernetes server certificate key.
 
    #### *b.3. Tạo Credential cho Jenkins Cloud:*  
 Để tạo Credential cho Jenkins Cloud kết nối tới Cluster, đầu tiên truy cập lại GCP https://console.cloud.google.com và chọn đúng project đang có Cluster.  
-Tiến hành tạo Service Account (*Service Account dùng để truy cập vào các nền tảng khác như Kubenetes thay vì đăng nhập bằng tài khoản Google bình thường* ), vào IAM & Admin --> Service Accounts --> CREATE SERVICE ACCOUNT --> Đặt tên cho Service Account --> Save.  
+Tiến hành tạo Service Account (*Service Account dùng để truy cập vào các nền tảng khác như Kubenetes thay vì đăng nhập bằng tài khoản Google bình thường* ), vào IAM & Admin --> Service Accounts --> CREATE SERVICE ACCOUNT --> Đặt tên cho Service Account --> Done.  
 
 <img width="1050" height="594" alt="Image" src="https://github.com/user-attachments/assets/5a33d119-fcb0-4bfe-b92d-38afa63dd736" />  
 <img width="927" height="130" alt="Image" src="https://github.com/user-attachments/assets/85c6280d-8016-4a6c-ba3d-f5714c9bc3e4" />  
@@ -250,7 +250,7 @@ Trở lại về Service Account vừa tạo, click vào Service Account đó v�
 
 Tiếp theo tiến hành lấy Access Token đại diện cho Servie Account, chạy command sau:  
 
-```gcloud auth activate-service-account --key-file=<Path chứa Json Key vừa tải>```  
+```gcloud auth activate-service-account <tên service account>@<tên project>.iam.gserviceaccount.com --key-file=<Path chứa Json Key vừa tải>```  
 ```gcloud auth print-access-token```  
 Đoạn Access Token sẽ được hiển thị như sau, Copy và lưu lại.  
 
@@ -271,6 +271,8 @@ Xong chọn Save để hoàn thành.
 Quay trở lại chỗ Credential và chọn đúng ID của Credential vừa tạo. Xong ấn "Test Connection" để xem đã kết nối được với Cluster chưa, nếu hiển thị như trong hình tức là đã kết nối thành công, xong nhấn "Save" để hoàn thành tạo Cloud kết nối Jenkins với Cluster. 
 
 <img width="1112" height="195" alt="Image" src="https://github.com/user-attachments/assets/4c7a21e9-f15e-4a2c-a540-70935972ef90" />  
+
+<img width="1221" height="259" alt="Image" src="https://github.com/user-attachments/assets/7535e086-2179-4eae-bf6e-f35edffd9035" />  
 
 ## **7. Khởi tạo luồng CI/CD Jenkins**  
 
