@@ -96,6 +96,10 @@ Chạy xong, kiểm tra bằng command: ```kubectl get pod``` và ```kubectl get
 
 <img width="1177" height="383" alt="Image" src="https://github.com/user-attachments/assets/4d48cf68-7ee4-44ae-8eca-5dbad6c0b221" />  
 
+Để truy cập được vào Jaeger, sử dụng port-forward: ```kubectl port-forward svc/jaeger 16686:16686``` sau đó truy cập vào localhost:16686, nếu thấy giao diện Jaeger hiện lên tức thành công.  
+
+<img width="960" height="524" alt="Image" src="https://github.com/user-attachments/assets/1eb5169d-8581-4bbe-94ef-a552b6af305f" />  
+
 ## **5. Khởi tạo Github Repo**  
 Truy cập github.com, tạo tài khoản nếu chưa có và khởi tạo 1 Repository ( Kho lưu trữ các file ) mới, điền Repository Name và để ở chế độ **PUBLIC**.   
 
