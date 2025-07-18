@@ -252,3 +252,5 @@ Copy và Paste vào vị trí Kubernetes server certificate key của giao diệ
 
 <img width="1184" height="449" alt="Image" src="https://github.com/user-attachments/assets/7b527167-07ff-4634-bf99-488591d3aebd" />  
 
+Xong kéo cuống và án thử "Test connection" để xem Jenkins đã kết nối tới Cluster hay chưa.  
+
