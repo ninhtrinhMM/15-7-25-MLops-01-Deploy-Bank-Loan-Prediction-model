@@ -165,7 +165,7 @@ Hoàn thành Add Webhook API của Jenkins cho Github. Mở 1 Terminal mới ở
 <img width="1000" height="402" alt="Image" src="https://github.com/user-attachments/assets/042522c2-a6ac-4400-b0cd-cf41c644e7c2" />  
 
 ## **6. Tạo liên kết giữa Jenkins với các platform khác**  
-### a. Lấy Github Access Token và Dockerhub Access Token:  
+### a. Lấy Github Access Token:  
 Jenkins cần có Github Access Token để có thể trigger (nhận biết) vào từng Branch (nhánh) của Github để nhận biết Jenkinsfile và Dockerhub Access Token để truy cập vào Dockerhub. Trước hết lấy Github Access Token bằng cách click vào Avatar Github --> Setting --> Developer Settings
 
 <img width="994" height="550" alt="Image" src="https://github.com/user-attachments/assets/16086200-a4e0-4e42-92b9-d76216115eaf" />  
@@ -273,7 +273,7 @@ Tiếp theo chạy command: ```cat ~/.kube/config``` để có được toàn b�
 
 <img width="1165" height="307" alt="Image" src="https://github.com/user-attachments/assets/48d5d132-dd1c-47ea-8a2c-108f3212b355" />  
 
-  #### *c.2. Kubernetes server certificate key:*  
+  #### *c.3. Kubernetes server certificate key:*  
 Giá trị Kubernetes server certificate key chính là đoạn mã dài sau certificate-authority-data hiện lên. 
 
 <img width="991" height="380" alt="Image" src="https://github.com/user-attachments/assets/e8c19ec3-3437-4b1c-b002-01d4c5b484ca" />  
