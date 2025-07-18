@@ -218,12 +218,42 @@ XOng ấn "Create" để tạo Dockerhub Credential. Trở lại Manage Jenkins/
 
 <img width="896" height="353" alt="Image" src="https://github.com/user-attachments/assets/af5bac3e-d569-46f2-8d00-ec024cab129f" />  
 
-Bảng New Cloud hiện lên, để lấy được thông tin Kubenetes URL và Kubernetes server certificate key làm các bước sau:  
+Bảng New Cloud hiện lên, với các ô cần điền như **Kubenetes URL** và **Kubernetes server certificate key***, nhưng trước hết cần tạo Credential mới để Jenkins có thể kết nối tới CLuster:  
 
 <img width="1067" height="444" alt="Image" src="https://github.com/user-attachments/assets/2f34d07a-594e-49fc-804b-bf2cf631d3d0" />   
 
-   #### *c.1. Kubenetes URL:*  
-Để lấy được Kubenetes URL của Cluster chúng ta tạo ở bước 3, truy cập lại https://console.cloud.google.com/ --> Chọn đúng Project --> Kubenetes Engine --> Cluster --> Click vào Cluster.  
+ #### *c.1. Tạo Credential cho Jenkins Cloud:*  
+Để tạo Credential cho Jenkins Cloud kết nối tới Cluster, đầu tiên tạo Service Account tên là jenkins-sa bằng command sau, service account có nhiệm vụ   
+```kubectl create serviceaccount jenkins-sa -n default```  
+
+Tiếp theo tạo Cluster Role Binding  
+```kubectl create clusterrolebinding jenkins-sa-binding \--clusterrole=cluster-admin \--serviceaccount=default:jenkins-sa```  
+
+Kiểm tra bằng lệnh ```kubectl get serviceaccount jenkins-sa -n default```. Nếu thấy hiển thị như trong hình thì nghĩa là tạo thành công.  
+
+<img width="959" height="131" alt="Image" src="https://github.com/user-attachments/assets/f8ae73c4-4f21-4999-bf65-e235e472c4ea" />  
+
+Tiếp theo chạy file jenkins-sa.yaml bằng lệnh: ```kubectl apply -f jenkins-sa.yaml``` để  
+
+Chạy command ```kubectl get secret jenkins-sa-token -n default -o jsonpath='{.data.token}' | base64 -d``` để hiển thị Token. Copy đoạn Token.  
+
+<img width="964" height="242" alt="Image" src="https://github.com/user-attachments/assets/5ba3e6c6-cba0-496f-bac8-d9a1ba07947f" />
+
+Trở lại với Jenkins, bắt đầu tạo 1 Credetial mới. vào Manage Jenkins --> Credential --> Click vào Global --> Add Credential
+
+<img width="1207" height="356" alt="Image" src="https://github.com/user-attachments/assets/0c0738c2-47bd-44d9-9393-f083f2d7217e" />  
+<img width="1218" height="245" alt="Image" src="https://github.com/user-attachments/assets/de3c84b6-2c20-4e63-970c-8b275ec88c6f" />  
+
+Bảng New Credential hiện lên, chọn Kind là Secret Text, mục Secret điền Token lúc nãy Copy vào, mục ID điền giá trị bất kỳ để quản lý, xong nhấn Create.  
+
+<img width="1111" height="553" alt="Image" src="https://github.com/user-attachments/assets/b6feebc4-7501-408c-a991-aae7bfbc7ca7" />  
+
+Tạo Credential mới thành công với ID là jenkins-cloud-credential.  
+
+<img width="1111" height="308" alt="Image" src="https://github.com/user-attachments/assets/7889a857-f4d9-45a2-b180-8e3742e8d486" />  
+
+   #### *c.2. Lấy Kubenetes URL:*  
+Để lấy được Kubenetes URL của Cluster mà chúng ta tạo ở bước 3, truy cập lại https://console.cloud.google.com/ --> Chọn đúng Project --> Kubenetes Engine --> Cluster --> Click vào Cluster.  
 
 <img width="1027" height="353" alt="Image" src="https://github.com/user-attachments/assets/12b7ebe8-3c1c-4fd9-aa1c-14a9b5ce8b97" />  
 
@@ -251,31 +281,5 @@ Giá trị Kubernetes server certificate key chính là đoạn mã dài sau cer
 Copy và Paste vào vị trí Kubernetes server certificate key của giao diện New Cloud trên Jenkins.  
 
 <img width="1184" height="449" alt="Image" src="https://github.com/user-attachments/assets/7b527167-07ff-4634-bf99-488591d3aebd" />  
-
- #### *c.3. Add Credential cho Jenkins Cloud:*  
-Để tạo Credential cho Jenkins Cloud kết nối tới Cluster, đầu tiên tạo Service Account tên là jenkins-sa bằng command sau, service account có nhiệm vụ   
-```kubectl create serviceaccount jenkins-sa -n default```  
-
-Tiếp theo tạo Cluster Role Binding  
-```kubectl create clusterrolebinding jenkins-sa-binding \--clusterrole=cluster-admin \--serviceaccount=default:jenkins-sa```  
-
-Kiểm tra bằng lệnh ```kubectl get serviceaccount jenkins-sa -n default```. Nếu thấy hiển thị như trong hình thì nghĩa là tạo thành công.  
-
-<img width="959" height="131" alt="Image" src="https://github.com/user-attachments/assets/f8ae73c4-4f21-4999-bf65-e235e472c4ea" />  
-
-Tiếp theo chạy file jenkins-sa.yaml bằng lệnh: ```kubectl apply -f jenkins-sa.yaml``` để  
-
-Chạy command ```kubectl get secret jenkins-sa-token -n default -o jsonpath='{.data.token}' | base64 -d``` để hiển thị Token. Copy đoạn Token.  
-
-<img width="964" height="242" alt="Image" src="https://github.com/user-attachments/assets/5ba3e6c6-cba0-496f-bac8-d9a1ba07947f" />
-
-Trở lại với Jenkins, bắt đầu tạo 1 Credetial mới. vào Manage Jenkins --> Credential --> Click vào Global --> Add Credential
-
-<img width="1207" height="356" alt="Image" src="https://github.com/user-attachments/assets/0c0738c2-47bd-44d9-9393-f083f2d7217e" />  
-<img width="1218" height="245" alt="Image" src="https://github.com/user-attachments/assets/de3c84b6-2c20-4e63-970c-8b275ec88c6f" />  
-
-Bảng New Credential hiện lên, chọn Kind là Secret Text, mục Secret điền Token lúc nãy Copy vào, mục ID điền giá trị bất kỳ để quản lý, xong nhấn Create.  
-
-<img width="1111" height="553" alt="Image" src="https://github.com/user-attachments/assets/b6feebc4-7501-408c-a991-aae7bfbc7ca7" />  
 
 
