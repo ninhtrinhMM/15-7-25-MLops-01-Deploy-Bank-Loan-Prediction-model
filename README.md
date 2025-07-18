@@ -113,11 +113,15 @@ Chạy lệnh: ```git remote add origin <Link Github Repo bạn vừa mới tạ
 Đồng hóa ( Synchronize ) giữa Repo dưới Local với Github repo: ```git push -u origin main```  
 Từ giờ khi có 1 Commit mới được tạo ra thì để đẩy lên Github Repo chỉ cần chạy ```git push```  
 
-## **6 Thiết lập Jenkins**
+## **6 Thiết lập Jenkins**  
+
 ### a. Khởi tạo Jenkins ở local  
-Jenkins có vai trò tự động hóa trong các bước Test-kiểm, Build và Deploy- Triển khai. Để chạy Jenkins, trước hết đảm bảo về đúng folder chứa Repo local: ```cd ~/<Path Repo Local>```  
-Chạy compose-jenkins.yaml bằng câu lệnh: ```docker compose -f compose-jenkins.yaml up -d```  
-Khi docker compose đang chạy, sẽ hiện ra Password như sau dùng để đăng nhập Jenkins, copy và lưu lại. Nếu không hiển thị như trong ảnh trên, vào Container Jenkins bằng command sau: ```docker logs jenkins```  để thấy được Password.
+
+Jenkins có vai trò tự động hóa trong các bước Test-kiểm, Build và Deploy- Triển khai. Để chạy Jenkins, nhập command vào Terminal:  
+
+```docker run -d -p 8080:8080 -p 50000:50000 \-u root \-v jenkins_home:/var/jenkins_home \-v /var/run/docker.sock:/var/run/docker.sock \-v $(which docker):/usr/bin/docker \--name jenkins-new \jenkins/jenkins:lts-jdk17```
+
+Trong quá trình khởi tạo Container, sẽ hiện ra Password như sau dùng để đăng nhập Jenkins, copy và lưu lại. Nếu không hiển thị như trong ảnh trên, vào Container Jenkins bằng command sau: ```docker logs jenkins-new```  để thấy được Password.
 
 <img width="942" height="294" alt="Image" src="https://github.com/user-attachments/assets/e7c59994-f456-45a3-8ce3-f5c76e4811cf" />  
 
