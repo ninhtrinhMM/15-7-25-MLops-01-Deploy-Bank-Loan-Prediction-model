@@ -252,7 +252,7 @@ Copy và Paste vào vị trí Kubernetes server certificate key của giao diệ
 
 <img width="1184" height="449" alt="Image" src="https://github.com/user-attachments/assets/7b527167-07ff-4634-bf99-488591d3aebd" />  
 
- #### *c.3. Add Credential:*  
+ #### *c.3. Add Credential cho Jenkins Cloud:*  
 Để tạo Credential cho Jenkins Cloud kết nối tới Cluster, đầu tiên tạo Service Account tên là jenkins-sa bằng command sau, service account có nhiệm vụ   
 ```kubectl create serviceaccount jenkins-sa -n default```  
 
