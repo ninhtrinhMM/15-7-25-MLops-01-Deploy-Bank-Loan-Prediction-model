@@ -125,7 +125,7 @@ Trong quá trình khởi tạo Container, sẽ hiện ra Password như sau dùng
 
 <img width="942" height="294" alt="Image" src="https://github.com/user-attachments/assets/e7c59994-f456-45a3-8ce3-f5c76e4811cf" />  
 
-Tiếp theo truy cập vào Jenkins bằng cách vào http://localhost:8081 và nhập Password ban nãy xong chọn Continue.  
+Tiếp theo truy cập vào Jenkins bằng cách vào http://localhost:8080 và nhập Password ban nãy xong chọn Continue.  
 
 <img width="882" height="566" alt="Image" src="https://github.com/user-attachments/assets/10c339e0-48f0-462d-a9e1-04bb5399ab22" />  
 
@@ -165,7 +165,7 @@ Trước hết sử dụng công cụ Ngrok để tạo 1 đường hầm Pubic 
 <img width="692" height="167" alt="Image" src="https://github.com/user-attachments/assets/f2ff36a0-66a7-403f-8520-3a5760419540" />  
 
 Bật Terminal của Vs code và chạy command: ```ngrok config add-authtoken <AUTHTOKEN lúc nãy>```  
-Tiếp theo chạy: ```ngrok http 8081``` ( 8081 là Port của Jenkins )
+Tiếp theo chạy: ```ngrok http 8080``` ( 8080 là Port của Jenkins )
 Xong khu vực Terminal sẽ hiển thị giao diện như sau:  
 
 <img width="818" height="319" alt="Image" src="https://github.com/user-attachments/assets/9ef74fc9-90ff-409d-92f1-bc352edc9736" />
