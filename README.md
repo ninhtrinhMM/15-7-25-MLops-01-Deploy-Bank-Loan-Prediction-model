@@ -276,6 +276,6 @@ Trở lại với Jenkins, bắt đầu tạo 1 Credetial mới. vào Manage Jen
 
 Bảng New Credential hiện lên, chọn Kind là Secret Text, mục Secret điền Token lúc nãy Copy vào, mục ID điền giá trị bất kỳ để quản lý, xong nhấn Create.  
 
-
+<img width="1111" height="553" alt="Image" src="https://github.com/user-attachments/assets/b6feebc4-7501-408c-a991-aae7bfbc7ca7" />  
 
 
