@@ -223,4 +223,21 @@ Bảng New Cloud hiện lên, để lấy được thông tin Kubenetes URL và 
 <img width="1067" height="444" alt="Image" src="https://github.com/user-attachments/assets/2f34d07a-594e-49fc-804b-bf2cf631d3d0" />   
 
    #### *c.1. Kubenetes URL:*  
-Truy cạp lại https://console.cloud.google.com/ --> Chọn đúng Project 
+Để lấy được Kubenetes URL của Cluster chúng ta tạo ở bước 3, truy cập lại https://console.cloud.google.com/ --> Chọn đúng Project --> Kubenetes Engine --> Cluster --> Click vào Cluster.  
+
+<img width="1027" height="353" alt="Image" src="https://github.com/user-attachments/assets/12b7ebe8-3c1c-4fd9-aa1c-14a9b5ce8b97" />  
+
+XOng tích chọn "Connect" để có được đoạn command kết nối tới Cluster này.  
+
+<img width="976" height="269" alt="Image" src="https://github.com/user-attachments/assets/af216d35-c21d-4bd9-8679-241bfdaca703" />  
+
+Copy đoạn command trên và paste trực tiếp vào Terminal VS Code.  
+
+<img width="961" height="318" alt="Image" src="https://github.com/user-attachments/assets/77476a28-cae4-4721-99af-f81bf258d5e1" />  
+
+Tiếp theo chạy command: ```cat ~/.kube/config``` để có được toàn bộ cấu hình của Cluster hiện lên. **Kubenetes URL** chính là dãy Server.  **Kubernetes server certificate key** là đoạn ký tự dài sau certificate-authority-data.  
+
+<img width="1177" height="512" alt="Image" src="https://github.com/user-attachments/assets/84f983df-4e42-4dae-b262-5fd9f3b2a812" />    
+
+
+
