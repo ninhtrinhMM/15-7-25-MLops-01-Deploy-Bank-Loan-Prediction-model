@@ -237,9 +237,18 @@ Copy đoạn command trên và paste trực tiếp vào Terminal VS Code.
 
 Tiếp theo chạy command: ```cat ~/.kube/config``` để có được toàn bộ cấu hình của Cluster hiện lên.  
 
-**Kubenetes URL** chính là dãy Server. Copy và Paste vào bảng New Cloud trên Jenkins.  
+**Kubenetes URL** chính là dãy Server. Copy và Paste vào vị trí Kubenetes URL của giao diện New Cloud trên Jenkins.  
 
 <img width="1187" height="509" alt="Image" src="https://github.com/user-attachments/assets/c6f9d1f3-9e11-460a-92a9-837d6587332f" />  
 
-<img width="1165" height="307" alt="Image" src="https://github.com/user-attachments/assets/48d5d132-dd1c-47ea-8a2c-108f3212b355" />
+<img width="1165" height="307" alt="Image" src="https://github.com/user-attachments/assets/48d5d132-dd1c-47ea-8a2c-108f3212b355" />  
+
+  #### *c.2. Kubernetes server certificate key:*  
+Giá trị Kubernetes server certificate key chính là đoạn mã dài sau certificate-authority-data hiện lên. 
+
+<img width="991" height="380" alt="Image" src="https://github.com/user-attachments/assets/e8c19ec3-3437-4b1c-b002-01d4c5b484ca" />  
+
+Copy và Paste vào vị trí Kubernetes server certificate key của giao diện New Cloud trên Jenkins.  
+
+<img width="1184" height="449" alt="Image" src="https://github.com/user-attachments/assets/7b527167-07ff-4634-bf99-488591d3aebd" />  
 
