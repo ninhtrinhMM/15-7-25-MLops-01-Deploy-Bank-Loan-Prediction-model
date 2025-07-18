@@ -381,5 +381,13 @@ Như trong hình, Jenkins đã quét ra được 1 file Jenkinsfile ở nhánh M
 
 <img width="682" height="524" alt="Image" src="https://github.com/user-attachments/assets/dc6eee33-77e1-4008-ad8e-d2da6754adcc" />  
 
+Vì Github Repo và Jenkins đã được trigger với nhau thông qua Webhook API ( ngrok ) nên Jenkins luôn tự động xem xét tìm kiếm Jenkinsfile ở trên mọi nhánh của Github Repo mỗi khi có Commit dưới local đẩy lên. Vì thế luồng tự động CI/CD được triển khai luôn ngay sau khi Pipeline (đoạn New Item) được tạo ra.  
+Để theo dõi quá trình Jenkins thực thi, click vào tên Pipeline --> main --> Click vào số "1" ( Số 1 là số lần Jenkins chạy, Muốn chạy lần nữa click vào Build Now )  
 
+<img width="1314" height="257" alt="Image" src="https://github.com/user-attachments/assets/44fc635c-abdb-4230-b8cd-6a02309517fb" />  
+<img width="996" height="227" alt="Image" src="https://github.com/user-attachments/assets/7e5b099c-c748-414e-9fb3-02393cb1274c" />
+<img width="665" height="412" alt="Image" src="https://github.com/user-attachments/assets/8867427a-0845-4fa4-8d66-5dba1f2a5531" />
 
+Sau khi ấn vào số "1" xong, chọn "Console Output" để xem quá trình chạy của Jenkins.  
+
+<img width="962" height="572" alt="Image" src="https://github.com/user-attachments/assets/d48438df-c6e0-4cdd-866b-d22d023b6ba2" />  
