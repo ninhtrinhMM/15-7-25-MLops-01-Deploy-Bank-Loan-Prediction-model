@@ -317,7 +317,35 @@ Hoàn thành xong kéo xuống nhấn "Generate Token" để tạo Github Access
 
 <img width="1010" height="444" alt="Image" src="https://github.com/user-attachments/assets/13852c0f-f9e8-4379-822e-d24b9443e881" />
 
-### b. Thiết lập luồng CI/CD:  
+### b. Jenkinsfile: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### c. Thiết lập luồng CI/CD:  
 
 Trở vè trang chủ Jenkins, chọn New Item.  
 
