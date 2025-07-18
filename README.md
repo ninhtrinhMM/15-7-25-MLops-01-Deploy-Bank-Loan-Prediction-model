@@ -80,7 +80,21 @@ Nếu thấy tên của Cluster trùng với tên Cluster được thiết lập
 <img width="928" height="456" alt="Image" src="https://github.com/user-attachments/assets/2c0ff572-2368-48a4-a709-06a4e47d3897" />  
 <img width="503" height="307" alt="Image" src="https://github.com/user-attachments/assets/fc71fe0a-2b1f-440f-9303-3a46c3e8c655" />  
 
-## **4. Khởi tạo Github Repo**  
+## **4. Khởi tạo Jaeger Tracing:**  
+
+Vì Jaeger là 1 công cụ theo dõi Trace được định nghĩa sẵn trong file ML-app.py (file main) nên chúng ta cần triển khai Jaegar trước có thể theo dõi Trace ngay khi app khởi động.  
+
+Trước hết đảm bảo vào đúng trong Cluster được tạo ở bước trước bằng command sau:  
+
+```gcloud container clusters get-credentials <Tên Cluster> --zone <Nơi đặt máy> --project <Tên Project>```  
+
+Xong chạy file Jaegar-deployment.yaml bằng command:  
+
+```kubectl apply -f Jaegar-deployment.yaml```  
+
+Chạy xong, kiểm tra bằng command: ```kubectl get pod``` và ```kubectl get svc```
+
+## **5. Khởi tạo Github Repo**  
 Truy cập github.com, tạo tài khoản nếu chưa có và khởi tạo 1 Repository ( Kho lưu trữ các file ) mới, điền Repository Name và để ở chế độ **PUBLIC**.   
 
 <img width="327" height="148" alt="Image" src="https://github.com/user-attachments/assets/8c25622d-d712-48f0-ab1d-3edbbfc86ed6" />  
@@ -91,7 +105,7 @@ Chạy lệnh: ```git remote add origin <Link Github Repo bạn vừa mới tạ
 Đồng hóa ( Synchronize ) giữa Repo dưới Local với Github repo: ```git push -u origin main```  
 Từ giờ khi có 1 Commit mới được tạo ra thì để đẩy lên Github Repo chỉ cần chạy ```git push```  
 
-## **5. Thiết lập Jenkins**
+## **6 Thiết lập Jenkins**
 ### a. Khởi tạo Jenkins ở local  
 Jenkins có vai trò tự động hóa trong các bước Test-kiểm, Build và Deploy- Triển khai. Để chạy Jenkins, trước hết đảm bảo về đúng folder chứa Repo local: ```cd ~/<Path Repo Local>```  
 Chạy compose-jenkins.yaml bằng câu lệnh: ```docker compose -f compose-jenkins.yaml up -d```  
@@ -164,7 +178,7 @@ Hoàn thành Add Webhook API của Jenkins cho Github. Mở 1 Terminal mới ở
 
 <img width="1000" height="402" alt="Image" src="https://github.com/user-attachments/assets/042522c2-a6ac-4400-b0cd-cf41c644e7c2" />  
 
-## **6. Tạo liên kết giữa Jenkins với các platform khác**  
+## **7. Tạo liên kết giữa Jenkins với các platform khác**  
 
 ### a. Kết nối Jenkins với Dockerhub:  
    
@@ -274,7 +288,7 @@ Quay trở lại chỗ Credential và chọn đúng ID của Credential vừa t�
 
 <img width="1221" height="259" alt="Image" src="https://github.com/user-attachments/assets/7535e086-2179-4eae-bf6e-f35edffd9035" />  
 
-## **7. Khởi tạo luồng CI/CD Jenkins**  
+## **8. Khởi tạo luồng CI/CD Jenkins**  
 
 ### a. Lấy Github Access Token:  
 
