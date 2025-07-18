@@ -272,4 +272,10 @@ Chạy command ```kubectl get secret jenkins-sa-token -n default -o jsonpath='{.
 Trở lại với Jenkins, bắt đầu tạo 1 Credetial mới. vào Manage Jenkins --> Credential --> Click vào Global --> Add Credential
 
 <img width="1207" height="356" alt="Image" src="https://github.com/user-attachments/assets/0c0738c2-47bd-44d9-9393-f083f2d7217e" />  
-<img width="1218" height="245" alt="Image" src="https://github.com/user-attachments/assets/de3c84b6-2c20-4e63-970c-8b275ec88c6f" />
+<img width="1218" height="245" alt="Image" src="https://github.com/user-attachments/assets/de3c84b6-2c20-4e63-970c-8b275ec88c6f" />  
+
+Bảng New Credential hiện lên, chọn Kind là Secret Text, mục Secret điền Token lúc nãy Copy vào, mục ID điền giá trị bất kỳ để quản lý, xong nhấn Create.  
+
+
+
+
