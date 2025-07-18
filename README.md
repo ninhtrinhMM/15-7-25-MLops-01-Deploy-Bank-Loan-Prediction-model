@@ -282,4 +282,6 @@ Copy và Paste vào vị trí Kubernetes server certificate key của giao diệ
 
 <img width="1184" height="449" alt="Image" src="https://github.com/user-attachments/assets/7b527167-07ff-4634-bf99-488591d3aebd" />  
 
+Tiếp theo kéo xuống và chọn ID Credential mà chúng ta đã tạo ở bước C.1, xong ấn "Test Connection" để xem đã sẵn sàng kết nối tới Cluster chưa.  
 
+<img width="1116" height="324" alt="Image" src="https://github.com/user-attachments/assets/d602b1bf-3aa6-4b29-8065-dee5cbe346b2" />  
