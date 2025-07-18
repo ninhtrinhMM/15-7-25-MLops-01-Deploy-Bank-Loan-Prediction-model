@@ -7,10 +7,12 @@ pipeline {
     }
     
     environment {
+        
+    // ** Repository hiện đang có trên Docker Hub
         registry = 'ninhtdmorningstar/loan-prediction-ml' 
-    // ninhtdmorningstar/loan-prediction-ml là repository đang có trên Docker Hub 
+    // ** credential ID của Docker Hub đã được thêm vào Jenkins
         registryCredential = 'dockerhub-credential'
-    // dockerhub-credential là credential ID của DOcker Hub đã được thêm vào Jenkins
+    
         APP_NAME = 'loan-prediction'
         NAMESPACE = 'default'
     }
@@ -151,21 +153,28 @@ spec:
     metadata:
       labels:
         app: ${APP_NAME}
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "5000"
+        prometheus.io/path: "/metrics"
     spec:
       containers:
       - name: ${APP_NAME}-container
         image: ${registry}:latest
         ports:
         - containerPort: 5000
+
 """
             
-            // Tạo file service.yaml
+            // Tạo file service.yaml cho deployment
             writeFile file: 'service.yaml', text: """
 apiVersion: v1
 kind: Service
 metadata:
   name: ${APP_NAME}-service
   namespace: ${NAMESPACE}
+  labels:
+    app: service-monitor ## match label của Service Monitor
   annotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "5000"
@@ -174,7 +183,8 @@ spec:
   selector:
     app: ${APP_NAME}
   ports:
-    - protocol: TCP
+    - name: http 
+      protocol: TCP
       port: 80
       targetPort: 5000
       nodePort: 30080
@@ -194,7 +204,7 @@ spec:
             // Kiểm tra kubectl đã cài đặt
             sh '$HOME/k8s-tools/kubectl version --client'
             // Áp dụng lên cluster
-            withKubeConfig([credentialsId: 'jenkins-cluster-connect', serverUrl: 'https://34.124.251.86']) {
+            withKubeConfig([credentialsId: 'jenkins-cluster-credential', serverUrl: 'https://34.124.251.86']) {
                 sh '$HOME/k8s-tools/kubectl apply -f deployment.yaml'
                 sh '$HOME/k8s-tools/kubectl apply -f service.yaml'
                 

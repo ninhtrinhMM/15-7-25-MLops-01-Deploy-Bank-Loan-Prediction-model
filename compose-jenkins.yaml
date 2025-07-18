@@ -6,7 +6,7 @@ services:
     container_name: jenkins
     restart: unless-stopped
     privileged: true
-    #user: root
+    user: root
     ports:
       - 8081:8080
       - 50000:50000
