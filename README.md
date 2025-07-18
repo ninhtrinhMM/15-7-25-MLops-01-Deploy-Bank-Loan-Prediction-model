@@ -289,10 +289,23 @@ Vào Personal Access Token --> Token Classic --> Generate new token --> Generate
 
 Điền tên cho Github Access Token và chọn ngày hết hạn. Phần "Select Scope" có thể tích hết các Option.  
 
-<img width="916" height="548" alt="Image" src="https://github.com/user-attachments/assets/05561388-82de-4963-9f94-e6be9dcb1b75" />
+<img width="916" height="548" alt="Image" src="https://github.com/user-attachments/assets/05561388-82de-4963-9f94-e6be9dcb1b75" />  
 
 Hoàn thành xong kéo xuống nhấn "Generate Token" để tạo Github Access Token. Giao diện chứa mã Github Access Token hiện lên. Tiến hành lưu mã Github Access Token ở nơi khác. Vì nếu mất không thể có lại được nữa.  
 
 <img width="1010" height="444" alt="Image" src="https://github.com/user-attachments/assets/13852c0f-f9e8-4379-822e-d24b9443e881" />
 
-    
+### b. Thiết lập luồng CI/CD:  
+
+Trở vè trang chủ Jenkins, chọn New Item.  
+
+<img width="1144" height="349" alt="Image" src="https://github.com/user-attachments/assets/2ca9d739-ebee-4085-a960-af5425bb23e7" />  
+
+Đặt tên cho Pipeline và chọn Multibranch Pipeline để quét toàn bộ các branch trong GitHub repo, xong nhấn OK.  
+
+<img width="898" height="550" alt="Image" src="https://github.com/user-attachments/assets/1d26b847-bbdf-4626-b194-1b54c217f18d" />  
+
+Giao diện General hiện lên. Điền tên Display Name, đây là tên hiển thị của luồng CI/CD.  
+Kéo xuống ở phần Branch Source chọn Github, để Jenkins có thể xét toàn bộ các nhánh của Github Repo.  
+
+<img width="897" height="486" alt="Image" src="https://github.com/user-attachments/assets/4dc4d976-37b0-46d6-92b4-3a374aa059eb" />  
