@@ -166,37 +166,16 @@ Hoàn thành Add Webhook API của Jenkins cho Github. Mở 1 Terminal mới ở
 
 ## **6. Tạo liên kết giữa Jenkins với các platform khác**  
 
-### a. Lấy Github Access Token và Dockerhub Access Token:  
-
-   ####*a.1.Github Access Token*  
-Jenkins cần có Github Access Token để có thể trigger (nhận biết) vào từng Branch (nhánh) của Github để nhận biết Jenkinsfile và Dockerhub Access Token để truy cập vào Dockerhub. Trước hết lấy Github Access Token bằng cách click vào Avatar Github --> Setting --> Developer Settings
-
-<img width="994" height="550" alt="Image" src="https://github.com/user-attachments/assets/16086200-a4e0-4e42-92b9-d76216115eaf" />  
-
-Vào Personal Access Token --> Token Classic --> Generate new token --> Generate new token (Classic)  
-
-<img width="1055" height="376" alt="Image" src="https://github.com/user-attachments/assets/ced75b73-7167-4182-b9b0-3ff77d91106c" />  
-<img width="1039" height="358" alt="Image" src="https://github.com/user-attachments/assets/421a5b4e-f7c9-4e86-95f5-038be15d5b78" />  
-
-Điền tên cho Github Access Token và chọn ngày hết hạn. Phần "Select Scope" có thể tích hết các Option.  
-
-<img width="916" height="548" alt="Image" src="https://github.com/user-attachments/assets/05561388-82de-4963-9f94-e6be9dcb1b75" />
-
-Hoàn thành xong kéo xuống nhấn "Generate Token" để tạo Github Access Token. Giao diện chứa mã Github Access Token hiện lên. Tiến hành lưu mã Github Access Token ở nơi khác. Vì nếu mất không thể có lại được nữa.  
-
-<img width="1010" height="444" alt="Image" src="https://github.com/user-attachments/assets/13852c0f-f9e8-4379-822e-d24b9443e881" />
-
-   ####*a.2.Dockerhub Access Token*  
+### a. Kết nối Jenkins với Dockerhub:  
    
-Để lấy Dockerhub Access Token, truy cập https://hub.docker.com/, click vào biểu tượng tài khoản và chọn Account Setting --> Personal Access Token --> Generate New Token --> Điền tên và chọn ngày hết hạn --> Chọn "Generate"  
+Đầu tiên lấy Dockerhub Access Token, truy cập https://hub.docker.com/, click vào biểu tượng tài khoản và chọn Account Setting --> Personal Access Token --> Generate New Token --> Điền tên và chọn ngày hết hạn --> Chọn "Generate"  
 
 <img width="684" height="439" alt="Image" src="https://github.com/user-attachments/assets/510a84b4-6db1-4008-868e-7f4bd4d83fbc" />  
 
 Đoạn mã khoanh đỏ chính là Dockerhub Access Token. Copy và lưu Dockerhub Access Token.  
 
-<img width="591" height="529" alt="Image" src="https://github.com/user-attachments/assets/918fa120-da57-4810-aeda-0b4a37c12675" />  
+<img width="591" height="529" alt="Image" src="https://github.com/user-attachments/assets/918fa120-da57-4810-aeda-0b4a37c12675" />   
 
-### b. Kết nối Jenkins với Dockerhub:  
 Để Jenkins có thể truy cập vào Dockerhub thực hiện các tác vụ, chúng ta cần tạo 1 Credential ( *Credential là tấm thẻ để truy cập vào nền tảng khác* ) để Jenkins có thể truy cập vào Dockerhub.  
 Truy cập vào localhost:8081, chọn Manage Jenkins --> Credential --> Click vào "system"  
 
@@ -218,7 +197,7 @@ XOng ấn "Create" để tạo Dockerhub Credential. Trở lại Manage Jenkins/
 
 <img width="1111" height="368" alt="Image" src="https://github.com/user-attachments/assets/2f5236d0-007a-4c72-ab9e-7d26195077d2" />  
 
-### c. Kết nối Jenkins với GCP Cluster:  
+### b. Kết nối Jenkins với GCP Cluster:  
 Để Jenkins có thể truy cập vào chính xác cụm máy Cluster mà chúng ta tạo ở mục 3, trở về trang chủ Jenkins --> Manage Jenkins --> Clouds --> New Cloud. Sau đó điền tên cho Cloud và chọn type là Kubenetes xong nhấn "Create".  
 
 <img width="896" height="353" alt="Image" src="https://github.com/user-attachments/assets/af5bac3e-d569-46f2-8d00-ec024cab129f" />  
@@ -227,14 +206,14 @@ Bảng New Cloud hiện lên, với các ô cần điền như **Kubenetes URL**
 
 <img width="1067" height="444" alt="Image" src="https://github.com/user-attachments/assets/2f34d07a-594e-49fc-804b-bf2cf631d3d0" />   
 
-   #### *c.1. Lấy Kubenetes URL:*  
+   #### *b.1. Lấy Kubenetes URL:*  
 Để lấy được Kubenetes URL của Cluster mà chúng ta tạo ở bước 3, chạy đoạn command sau:  
 
 ```gcloud container clusters describe <Tên Cluster> --zone=<Tên vùng> --format="value(endpoint)"```  
 
 Kết quả hiện ra sẽ ở dưới dạng như 34.124.333.33 thì giá trị để điền vào ô Kubenetes URL sẽ là: ```https://34.124.333.33```  
 
-   #### *c.2. Kubernetes server certificate key:*  
+   #### *b.2. Kubernetes server certificate key:*  
 
 Chạy command sau:  
 
@@ -242,7 +221,7 @@ Chạy command sau:
 
 Copy dãy Certificate và paste vào phần Kubernetes server certificate key.  
 
-   #### *c.3. Tạo Credential cho Jenkins Cloud:*  
+   #### *b.3. Tạo Credential cho Jenkins Cloud:*  
 Để tạo Credential cho Jenkins Cloud kết nối tới Cluster, đầu tiên truy cập lại GCP https://console.cloud.google.com và chọn đúng project đang có Cluster.  
 Tiến hành tạo Service Account (*Service Account dùng để truy cập vào các nền tảng khác như Kubenetes thay vì đăng nhập bằng tài khoản Google bình thường* ), vào IAM & Admin --> Service Accounts --> CREATE SERVICE ACCOUNT --> Đặt tên cho Service Account --> Save.  
 
@@ -289,10 +268,29 @@ Xong chọn Save để hoàn thành.
 
 <img width="936" height="500" alt="Image" src="https://github.com/user-attachments/assets/e8b40924-a76a-4f38-82fb-ef19dce7895a" />  
 
-Quay trở lại chỗ Credential và chọn đúng ID của Credential vừa tạo. Xong ấn "Test Connection" để xem đã kết nối được với Cluster chưa, nếu hiển thị như trong hình tức là đã kết nối thành công.  
+Quay trở lại chỗ Credential và chọn đúng ID của Credential vừa tạo. Xong ấn "Test Connection" để xem đã kết nối được với Cluster chưa, nếu hiển thị như trong hình tức là đã kết nối thành công, xong nhấn "Save" để hoàn thành tạo Cloud kết nối Jenkins với Cluster. 
 
 <img width="1112" height="195" alt="Image" src="https://github.com/user-attachments/assets/4c7a21e9-f15e-4a2c-a540-70935972ef90" />  
 
+## **7. Khởi tạo luồng CI/CD Jenkins**  
 
+###a. Lấy Github Access Token:  
+
+Jenkins cần có Github Access Token để có thể trigger (nhận biết) vào từng Branch (nhánh) của Github để nhận biết Jenkinsfile và Dockerhub Access Token để truy cập vào Dockerhub. Trước hết lấy Github Access Token bằng cách click vào Avatar Github --> Setting --> Developer Settings
+
+<img width="994" height="550" alt="Image" src="https://github.com/user-attachments/assets/16086200-a4e0-4e42-92b9-d76216115eaf" />  
+
+Vào Personal Access Token --> Token Classic --> Generate new token --> Generate new token (Classic)  
+
+<img width="1055" height="376" alt="Image" src="https://github.com/user-attachments/assets/ced75b73-7167-4182-b9b0-3ff77d91106c" />  
+<img width="1039" height="358" alt="Image" src="https://github.com/user-attachments/assets/421a5b4e-f7c9-4e86-95f5-038be15d5b78" />  
+
+Điền tên cho Github Access Token và chọn ngày hết hạn. Phần "Select Scope" có thể tích hết các Option.  
+
+<img width="916" height="548" alt="Image" src="https://github.com/user-attachments/assets/05561388-82de-4963-9f94-e6be9dcb1b75" />
+
+Hoàn thành xong kéo xuống nhấn "Generate Token" để tạo Github Access Token. Giao diện chứa mã Github Access Token hiện lên. Tiến hành lưu mã Github Access Token ở nơi khác. Vì nếu mất không thể có lại được nữa.  
+
+<img width="1010" height="444" alt="Image" src="https://github.com/user-attachments/assets/13852c0f-f9e8-4379-822e-d24b9443e881" />
 
     
