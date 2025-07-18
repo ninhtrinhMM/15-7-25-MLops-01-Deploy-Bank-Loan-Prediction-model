@@ -8,9 +8,9 @@ pipeline {
     
     environment {
         
-    // ** Repository hiện đang có trên Docker Hubb
+    // ** Repository hiện đang có trên Docker Hubbbbb
         registry = 'ninhtdmorningstar/loan-prediction-ml' 
-    // ** credential ID của Docker Hub đã được thêm vào Jenkins
+    // ** credential ID của Docker Hub đã được thêm vào Jenkinssss
         registryCredential = 'dockerhub-credential'
     
         APP_NAME = 'loan-prediction'
