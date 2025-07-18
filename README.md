@@ -165,7 +165,10 @@ Hoàn thành Add Webhook API của Jenkins cho Github. Mở 1 Terminal mới ở
 <img width="1000" height="402" alt="Image" src="https://github.com/user-attachments/assets/042522c2-a6ac-4400-b0cd-cf41c644e7c2" />  
 
 ## **6. Tạo liên kết giữa Jenkins với các platform khác**  
-### a. Lấy Github Access Token:  
+
+### a. Lấy Github Access Token và Dockerhub Access Token:  
+
+   ####*a.1.Github Access Token*  
 Jenkins cần có Github Access Token để có thể trigger (nhận biết) vào từng Branch (nhánh) của Github để nhận biết Jenkinsfile và Dockerhub Access Token để truy cập vào Dockerhub. Trước hết lấy Github Access Token bằng cách click vào Avatar Github --> Setting --> Developer Settings
 
 <img width="994" height="550" alt="Image" src="https://github.com/user-attachments/assets/16086200-a4e0-4e42-92b9-d76216115eaf" />  
@@ -183,6 +186,8 @@ Hoàn thành xong kéo xuống nhấn "Generate Token" để tạo Github Access
 
 <img width="1010" height="444" alt="Image" src="https://github.com/user-attachments/assets/13852c0f-f9e8-4379-822e-d24b9443e881" />
 
+   ####*a.2.Dockerhub Access Token*  
+   
 Để lấy Dockerhub Access Token, truy cập https://hub.docker.com/, click vào biểu tượng tài khoản và chọn Account Setting --> Personal Access Token --> Generate New Token --> Điền tên và chọn ngày hết hạn --> Chọn "Generate"  
 
 <img width="684" height="439" alt="Image" src="https://github.com/user-attachments/assets/510a84b4-6db1-4008-868e-7f4bd4d83fbc" />  
