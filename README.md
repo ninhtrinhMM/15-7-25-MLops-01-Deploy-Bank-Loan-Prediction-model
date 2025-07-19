@@ -48,7 +48,7 @@ Mở 1 folder trống bất kỳ trên máy Local bằng VS Code (hoặc IDE kh�
 - Dockerfile
 - Jaegar-deployment.yaml
 - Jenkinsfile
-- ML-app.py
+- ML-app.py  ##**File main**
 - requirements.txt
 - note-attention.txt
 - terraform.tf
@@ -418,7 +418,7 @@ Xong ấn Execute để gửi Request tới Model, kéo xuống dưới và th�
 
 ## **9. Các hệ thống giám sát:**  
 
-### 9.a Prometheus:  
+### a. Prometheus:  
 
 Để cài Prometheus, trước hết đảm bảo đã ở trong Cluster:  
 
@@ -488,4 +488,23 @@ Search ```increase(ml_prediction_duration_seconds_sum[5m])``` sẽ nhận đư�
 Search ```ml_prediction_duration_seconds_count``` sẽ nhận được tổng số request nhận được ở mỗi Pod từ lúc khởi động tới hiện tại.  
 
 <img width="1312" height="301" alt="Image" src="https://github.com/user-attachments/assets/8acf5213-ff07-40e5-ba55-2049d685337d" />  
+
+### b. Grafana:  
+
+Vì service của Grafana đã được triển khai ở bước trước nên nếu muốn truy cập vào Grafana, chúng ta chỉ cần port-forward cho service "prometheus-grafana":  
+
+<img width="996" height="214" alt="Image" src="https://github.com/user-attachments/assets/822e71ad-0d16-4473-ba79-26cf21563956" />  
+
+Mở Terminal mới, Chạy command: ```kubectl port-forward svc/prometheus-grafana -n monitoring  3000:80``` xong truy cập localhost:3000 để vào Grafana.   
+
+Giao diện Grafana hiện lên ,tên account để đăng nhập là admin, password nằm ở trong file prometheus-values.yaml  
+
+<img width="849" height="512" alt="Image" src="https://github.com/user-attachments/assets/5ef5e7a2-43d0-42db-b677-dad178097da5" />  
+<img width="922" height="406" alt="Image" src="https://github.com/user-attachments/assets/3f2af9d3-cdd5-432e-8b77-f00c876ad344" />  
+
+
+Đăng nhập xong, click vào Dashboard --> New --> New Dashboard --> Add Visualization --> Chọn "Prometheus" để bắt đầu tạo Dashboard thể hiện các metric từ Promtheus.  
+
+<img width="1060" height="424" alt="Image" src="https://github.com/user-attachments/assets/df29f030-c17e-4f38-bda5-302b2037aad9" />  
+
 
