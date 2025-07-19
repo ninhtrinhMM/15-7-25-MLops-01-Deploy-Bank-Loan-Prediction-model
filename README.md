@@ -507,4 +507,22 @@ Giao diện Grafana hiện lên ,tên account để đăng nhập là admin, pas
 
 <img width="1060" height="424" alt="Image" src="https://github.com/user-attachments/assets/df29f030-c17e-4f38-bda5-302b2037aad9" />  
 
+Bảng Edit Panel hiện ra, search metric ở vị trí (1), luôn để ở chế độ Code, xong ấn Run Query (2) để bắt đầu thể hiện biểu đồ của metric đang search.  
 
+<img width="999" height="587" alt="Image" src="https://github.com/user-attachments/assets/a04e655d-5e45-426a-8bbe-696a2e299a21" />  
+
+Biểu đồ của metric "model_request_total" hiện lên với mỗi màu là một Pod riêng biệt thể hiện thời điểm nhận số lượng request tương ứng thời gian.  
+
+<img width="992" height="313" alt="Image" src="https://github.com/user-attachments/assets/1a6afb74-2422-40b3-bfd3-47470e0c8a52" />
+
+Điền tên cho biểu đồ và chọn "Save Dashboard".  
+
+<img width="500" height="418" alt="Image" src="https://github.com/user-attachments/assets/0f08ae8f-5f4e-4694-a167-e6b42d758b95" />  
+
+Đặt tên Title, đây là tên của Dashboard lớn quản lý nhiều Dashboard nhỏ bên trong.    
+
+<img width="1298" height="455" alt="Image" src="https://github.com/user-attachments/assets/f022e7de-cb0b-4db9-a235-23dcad19e573" />  
+
+Dashboard lớn hiện lên gồm 1 bảng dashboard nhỏ bên trong như trong hình, muốn thêm dashboard nhỏ nữa --> chọn "add" --> Vizualization
+
+<img width="1318" height="620" alt="Image" src="https://github.com/user-attachments/assets/cf3c0bcf-1073-4173-a650-b8f4f8d57271" />  
