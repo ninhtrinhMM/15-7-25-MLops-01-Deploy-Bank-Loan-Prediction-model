@@ -324,30 +324,11 @@ Hoàn thành xong kéo xuống nhấn "Generate Token" để tạo Github Access
 
 ### b. Jenkinsfile: 
 
+<img width="942" height="234" alt="Image" src="https://github.com/user-attachments/assets/92ed68dc-1a7b-4012-b80b-ef3b2834e662" />  
 
+Ở trong file Jenkinsfile, mục (1) là Repository hiện đang có trên Dockerhub.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Mục (2) là ID của Dockerhub Credential được tạo ở bước 7a.  
 
 
 ### c. Thiết lập luồng CI/CD:  
