@@ -117,9 +117,11 @@ Từ giờ khi có 1 Commit mới được tạo ra thì để đẩy lên Githu
 
 ### a. Khởi tạo Jenkins ở local  
 
-Jenkins có vai trò tự động hóa trong các bước Test-kiểm, Build và Deploy- Triển khai. Để chạy Jenkins, nhập command vào Terminal:  
+Jenkins có vai trò tự động hóa trong các bước Test-kiểm, Build và Deploy- Triển khai. Để chạy Jenkins, chắc chắn đang ở trong thư mục Repo local:  
 
-```docker run -d -p 8080:8080 -p 50000:50000 \-u root \-v jenkins_home:/var/jenkins_home \-v /var/run/docker.sock:/var/run/docker.sock \-v $(which docker):/usr/bin/docker \--name jenkins-new \jenkins/jenkins:lts-jdk17```
+```cd ~/<Path repo>```
+
+```docker compose -f jenkins-compose.yaml up -d```
 
 Trong quá trình khởi tạo Container, sẽ hiện ra Password như sau dùng để đăng nhập Jenkins, copy và lưu lại. Nếu không hiển thị như trong ảnh trên, vào Container Jenkins bằng command sau: ```docker logs jenkins-new```  để thấy được Password.
 
