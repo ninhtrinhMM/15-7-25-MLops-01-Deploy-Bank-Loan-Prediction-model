@@ -416,3 +416,26 @@ Xong ấn Execute để gửi Request tới Model, kéo xuống dưới và th�
 
 <img width="1266" height="516" alt="Image" src="https://github.com/user-attachments/assets/62339e71-a1de-4597-a915-ae2ae88ce27e" />  
 
+## **9. Các hệ thống giám sát:**  
+
+### 9.a Prometheus:  
+
+Để cài Prometheus, trước hết đảm bảo đã ở trong Cluster:  
+
+```gcloud container clusters get-credentials <Tên Cluster> --zone <Vị trí đặt máy> --project <Tên dự án>```  
+
+Tiến hành tạo 1 một kho lưu trữ Helm (Helm repository) tên là prometheus-community, chứa các Helm Chart (Grafana, prometheus,...) từ https://prometheus-community.github.io/helm-charts :  
+
+```helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && helm repo update```  
+
+Để tạo 1 khu vực riêng biệt cho các Pod và service từ Helm, chúng ta tạo 1 Namespace ( khu vực ) riêng biệt tên là monitoring: ```kubectl create namespace monitoring```  
+
+Cài đặt ứng dụng Prometheus vào cụm Cluster từ bộ kube-prometheus-stack trong Helm Repo prometheus-community với cấu hình của file prometheus-values.yaml  : ```helm install prometheus prometheus-community/kube-prometheus-stack --namespace monitoring --values prometheus-values.yaml --wait```   
+
+Hoàn thiện xong, kiểm tra các Pod và service:  
+
+```kubectl get po -n monitoring - o wide```  
+```kubectl get svc -n monitoring```  
+
+<img width="993" height="194" alt="Image" src="https://github.com/user-attachments/assets/e063e5f6-4ab7-43fa-ae92-242e18ca0b99" />  
+
