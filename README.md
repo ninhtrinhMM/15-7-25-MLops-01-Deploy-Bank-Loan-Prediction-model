@@ -185,7 +185,7 @@ Giao diện Add Webhook hiện ra, phần Payload URL* điền link địa chỉ
 
 <img width="990" height="439" alt="Image" src="https://github.com/user-attachments/assets/70424728-2fb1-4167-a6e5-0c9e44ada9cb" />
 
-Phần Which events would you like to trigger this webhook? chọn "Let me select individual events." và tích chọn Push và Pull request để Jenkins nhận biết 2 dạng sự kiện thay đổi này từ Github. Xong kéo xuống chọn "Add Webhook"  
+Phần Which events would you like to trigger this webhook? chọn "Let me select individual events." và tích chọn Push ( hoặc nếu muốn có thể chọn cả Pull ) để Jenkins nhận biết 2 dạng sự kiện thay đổi này từ Github. Xong kéo xuống chọn "Add Webhook"  
 
 <img width="609" height="397" alt="Image" src="https://github.com/user-attachments/assets/ce9cf452-736c-4ee0-8abc-5a23f380489a" />  
 
