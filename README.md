@@ -324,7 +324,7 @@ Hoàn thành xong kéo xuống nhấn "Generate Token" để tạo Github Access
 
 <img width="1010" height="444" alt="Image" src="https://github.com/user-attachments/assets/13852c0f-f9e8-4379-822e-d24b9443e881" />
 
-### b. Jenkinsfile: 
+### b. Thiếp lập thông tin trong Jenkinsfile: 
 
 <img width="942" height="234" alt="Image" src="https://github.com/user-attachments/assets/92ed68dc-1a7b-4012-b80b-ef3b2834e662" />  
 
@@ -377,9 +377,42 @@ Vì Github Repo và Jenkins đã được trigger với nhau thông qua Webhook 
 Để theo dõi quá trình Jenkins thực thi, click vào tên Pipeline --> main --> Click vào số "1" ( Số 1 là số lần Jenkins chạy, Muốn chạy lần nữa click vào Build Now )  
 
 <img width="1314" height="257" alt="Image" src="https://github.com/user-attachments/assets/44fc635c-abdb-4230-b8cd-6a02309517fb" />  
-<img width="996" height="227" alt="Image" src="https://github.com/user-attachments/assets/7e5b099c-c748-414e-9fb3-02393cb1274c" />
-<img width="665" height="412" alt="Image" src="https://github.com/user-attachments/assets/8867427a-0845-4fa4-8d66-5dba1f2a5531" />
+<img width="996" height="227" alt="Image" src="https://github.com/user-attachments/assets/7e5b099c-c748-414e-9fb3-02393cb1274c" />  
+<img width="665" height="412" alt="Image" src="https://github.com/user-attachments/assets/8867427a-0845-4fa4-8d66-5dba1f2a5531" />  
 
 Sau khi ấn vào số "1" xong, chọn "Console Output" để xem quá trình chạy của Jenkins.  
 
 <img width="962" height="572" alt="Image" src="https://github.com/user-attachments/assets/d48438df-c6e0-4cdd-866b-d22d023b6ba2" />  
+
+Hiển thị như trong hình nghĩa là luồng Jenkins đã chạy thành công. *Nếu luồng chạy bị fail ở đoạn Deploy GKE thì hãy làm lại từ bước 7.b.3*  
+
+<img width="1212" height="596" alt="Image" src="https://github.com/user-attachments/assets/38c4313c-1009-498c-833a-8eba84c10f89" />  
+
+### d. Check kết quả API trả về:  
+
+Check các Pod của file deployment.yaml được triển khai thành công: ```kubectl get pod -o wide```  
+
+Như trong hình ta thấy hiện có 4 Pod, 3 Pod thuộc được Jenkins triển khai và 1 pod Jaeger nằm trong 3 Node của Cluster.  
+
+<img width="985" height="238" alt="Image" src="https://github.com/user-attachments/assets/09d0ddd6-d279-42ea-9d0b-8e9b9a85d85c" />  
+
+Service của deployment khi Jenkins triển khai là Node Port nên đê truy cập được vào service, chúng ta cần External IP của Node, chạy lệnh: ```kubectl get node -o wide``` và lấy External IP của 1 Node bất kỳ.  
+
+<img width="977" height="155" alt="Image" src="https://github.com/user-attachments/assets/c4092aee-fa83-4970-94d8-4b015999ef1d" />  
+
+Sau đó truy cập ```<External-IP-Node>:<nodePort của Service>/docs``` để vào Fast API của App. Giao diện hiện ra như trong ảnh tức Service đã triển khai thành công.  
+
+<img width="1011" height="488" alt="Image" src="https://github.com/user-attachments/assets/a8ccd6e9-a698-49fe-a9b7-240e221dccf5" />  
+
+Trước khi chạy thử, đầu tiên chúng ta cần lấy 1 trường hợp bất kỳ trong Datatable chứa 45000 trường hợp vay vốn. Mở file ML_DL_Loan_Deal_Classification.ipynb trong Folder jupyter-notebook-model, kéo xuống mục số 7 và copy dãy 14 số trong hình, bỏ số 0 ở cuối vì đây là Target Label ( 0 là vỡ nợ, 1 là trả được nợ ), đây chính là 13 feature được dùng đẻ train cho mô hình.    
+
+<img width="1269" height="499" alt="Image" src="https://github.com/user-attachments/assets/9805f82e-8878-46f3-b485-a9aa09139b7c" />  
+
+Quay trở lại với FAST API, chọn Post/predict --> Try it out --> Paste dãy số Feature  
+
+<img width="1279" height="578" alt="Image" src="https://github.com/user-attachments/assets/e0286e5f-ac22-4bbe-9411-0137bcabab00" />  
+
+Xong ấn Execute để gửi Request tới Model, kéo xuống dưới và thấy hiển thị như trong hình nghĩa là thành công response (đáp lại) cho request và kết quả trả về là 0 ( vỡ nợ ), đúng với kết quả Target Label của bài.  
+
+<img width="1266" height="516" alt="Image" src="https://github.com/user-attachments/assets/62339e71-a1de-4597-a915-ae2ae88ce27e" />  
+
