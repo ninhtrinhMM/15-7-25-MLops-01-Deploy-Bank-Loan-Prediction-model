@@ -459,3 +459,33 @@ Nếu thấy tên của service monitor như này nghĩa là Prometheus đã nh�
 
 <img width="1240" height="270" alt="Image" src="https://github.com/user-attachments/assets/0c93c73a-da1e-44af-94b9-66959f07be04" />  
 <img width="941" height="263" alt="Image" src="https://github.com/user-attachments/assets/7dd2d777-af69-4f0b-ac73-6965c00ceffe" />  
+
+Ở trong file ML-app.py đã được định nghĩa 3 Metric lần lượt như sau:  
+
+<img width="842" height="347" alt="Image" src="https://github.com/user-attachments/assets/86bf1fd2-4a4b-4701-8cc2-f8d64c4a4b6e" />  
+
+1. Metric tên là model_request_total: dạng counter, đếm số request được gửi tới Model, cả các request bị lỗi
+2. Metric tên là ml_prediction_duration_seconds: dạng historgram, đo thời gian thực hiện request
+3. Metric tên là ml_errors_total: dạng counter, đếm số request bị lỗi gửi tới Model
+
+Gửi vài request tới Model, search ```model_request_total``` sẽ có được số request nhận được ở mỗi Pod.  
+
+<img width="1312" height="369" alt="Image" src="https://github.com/user-attachments/assets/6b534b09-49ad-4175-9669-fa91e106b270" />  
+
+Nếu search ```rate(model_request_total[6m]) * 6 *60``` chúng ta sẽ nhận được số request **trung bình** nhận được ( từ 1 giây nhận được bao nhiêu Request rồi nhân lên 6 phút ) ở mỗi Pod trong 6 phút gần nhất. Từ đó có thể thấy Pod loan-prediction-deployment-5b54876b5-lcp49 được phân bố nhận request nhiều nhất.  
+
+<img width="1312" height="369" alt="Image" src="https://github.com/user-attachments/assets/afc9cbb8-c990-4725-a00c-3a67c2fb4193" />  
+
+Tương tự vậy, gửi 1 số request lỗi đầu vào, như sai định dạng đầu vào để xem metric ml_error_total hoạt động như nào. Trong đó lỗi dạng ValueError là sai định dạng Input, lỗi HTTP là lỗi trả về API endpoint.  
+
+<img width="1311" height="411" alt="Image" src="https://github.com/user-attachments/assets/2f2669dc-a250-4d73-b845-0bb8ef8a5f10" />  
+
+Search metric ```ml_prediction_duration_seconds_sum``` ta sẽ được tổng thời gian xử lý các request, kể cả các request bị lỗi, từ lúc hoạt động tới hiện tại của mỗi Pod.  
+
+<img width="1312" height="555" alt="Image" src="https://github.com/user-attachments/assets/b86eb471-4dd6-45f0-abf0-d45b27089534" />  
+
+Search ```increase(ml_prediction_duration_seconds_sum[5m])``` sẽ nhận được tổng thời gian xử lý tất cả các request trong 5 phút gần nhất của mỗi Pod.  
+Search ```ml_prediction_duration_seconds_count``` sẽ nhận được tổng số request nhận được ở mỗi Pod từ lúc khởi động tới hiện tại.  
+
+<img width="1312" height="301" alt="Image" src="https://github.com/user-attachments/assets/8acf5213-ff07-40e5-ba55-2049d685337d" />  
+
