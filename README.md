@@ -216,7 +216,7 @@ Xong chọn tiếp "Global credentials (unrestricted)" --> Add Credentials
 <img width="1201" height="227" alt="Image" src="https://github.com/user-attachments/assets/8f1f2e00-481d-4182-aa15-847c6df9a367" />  
 
 Bảng New Credential hiện lên, lần lượt điền các thông tin như sau:  
-1. Điền User name cho Credential này.  
+1. User name = Tên tài khoản Dockerhub. 
 2. Password chính là Dockerhub Access Token vừa nãy lưu.  
 3. Điền ID cho Credential, ID này dùng để xác định chính xác Credential nào Jenkins sẽ sử dụng.  
 
@@ -289,11 +289,11 @@ Trở lại với Jenkins, kéo xuống phần Credential của giao diện New 
 
 <img width="1141" height="340" alt="Image" src="https://github.com/user-attachments/assets/88bbaa9e-2267-4dd8-b3c7-266e46ebb58a" />  
 
-GIao diện Add Credential hiện lên, điền các thông tin như sau: 
-1. Để kind là Secret Text
-2. Paste Access Token ban nãy vừa lưu lại.
-3. Điền ID để quản lý.
-Xong chọn Save để hoàn thành.
+Giao diện Add Credential hiện lên, điền các thông tin như sau:  
+1. Để kind là Secret Text  
+2. Paste Access Token ban nãy vừa lưu lại.  
+3. Điền ID để quản lý.  
+Xong chọn Save để hoàn thành.  
 
 <img width="936" height="500" alt="Image" src="https://github.com/user-attachments/assets/e8b40924-a76a-4f38-82fb-ef19dce7895a" />  
 
