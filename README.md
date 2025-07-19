@@ -448,3 +448,7 @@ Chạy file service-monitor.yaml: ```kubectl apply -f prometheus/service-monitor
 Truy cập service Prometheus bằng cách vào localhost:9090 ,giao diện hiện lên như dưới nghĩa là vào Prometheus thành công:  
 
 <img width="1312" height="481" alt="Image" src="https://github.com/user-attachments/assets/dbd84a4b-7bbb-4b46-b24e-11c520fb7a4f" />  
+
+Để check Prometheus đã nhận biết và callout Metric từ Container ở Các Pod hay chưa, chúng ta vào Status --> Target Health  
+
+<img width="883" height="468" alt="Image" src="https://github.com/user-attachments/assets/f870a44b-5705-42df-a2c1-1a1bcd2535c0" />
