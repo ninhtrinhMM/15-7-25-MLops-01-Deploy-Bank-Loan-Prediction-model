@@ -8,7 +8,7 @@
 
 -------
 
-## 1. Giới thiệu tổng quát
+## 1. Giới thiệu tổng quát: 
 
 ### a. Sơ lược về mô hình ML và mục đích triển khai
 - Mô hình Machine Learning trong Github Repo được huấn luyện với bộ dữ liệu chứa 45.000 bản ghi về người đăng ký vay vốn, với nhiều thuộc tính khác nhau liên quan đến:
