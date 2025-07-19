@@ -69,7 +69,7 @@ pipeline {
                     echo 'Building Docker image..'
                     try {
                         dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                        echo 'Docker image built successfully'
+                        echo 'Docker image built successfully!!'
                     } catch (Exception e) {
                         echo "Docker build failed: ${e.getMessage()}"
                         echo "This might be due to Docker not being properly installed"
