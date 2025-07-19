@@ -439,7 +439,9 @@ Hoàn thiện xong, kiểm tra các Pod và service:
 
 <img width="993" height="194" alt="Image" src="https://github.com/user-attachments/assets/e063e5f6-4ab7-43fa-ae92-242e18ca0b99" />  
 
-Chạy file service-monitor.yaml: ```kubectl apply -f prometheus/service-monitor.yaml```  
+Chạy file service-monitor.yaml, Service Monitor có nhiệm vụ tự động phát hiện các Service ( thông qua gắn Match Label ) trong Cluster và cấu hình Prometheus để thu thập metrics từ các Service đó:  
+
+ ```kubectl apply -f prometheus/service-monitor.yaml```  
 
 Để vào Prometheus, chúng ta cần truy cập vào service tên là "prometheus-kube-prometheus-prometheus" thông qua Port-forward:  
 
@@ -451,4 +453,9 @@ Truy cập service Prometheus bằng cách vào localhost:9090 ,giao diện hi�
 
 Để check Prometheus đã nhận biết và callout Metric từ Container ở Các Pod hay chưa, chúng ta vào Status --> Target Health  
 
-<img width="883" height="468" alt="Image" src="https://github.com/user-attachments/assets/f870a44b-5705-42df-a2c1-1a1bcd2535c0" />
+<img width="883" height="468" alt="Image" src="https://github.com/user-attachments/assets/f870a44b-5705-42df-a2c1-1a1bcd2535c0" />  
+
+Nếu thấy tên của service monitor như này nghĩa là Prometheus đã nhận biết được các Metric.  
+
+<img width="1240" height="270" alt="Image" src="https://github.com/user-attachments/assets/0c93c73a-da1e-44af-94b9-66959f07be04" />  
+<img width="941" height="263" alt="Image" src="https://github.com/user-attachments/assets/7dd2d777-af69-4f0b-ac73-6965c00ceffe" />  
