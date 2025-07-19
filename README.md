@@ -326,10 +326,15 @@ Hoàn thành xong kéo xuống nhấn "Generate Token" để tạo Github Access
 
 <img width="942" height="234" alt="Image" src="https://github.com/user-attachments/assets/92ed68dc-1a7b-4012-b80b-ef3b2834e662" />  
 
-Ở trong file Jenkinsfile, mục (1) là Repository hiện đang có trên Dockerhub.
+Một số thông tin phải thiết lập ở trong file Jenkinsfile, mục (1) là Repository hiện đang có trên Dockerhub, phải ở chế độ Public.   
 
-Mục (2) là ID của Dockerhub Credential được tạo ở bước 7a.  
+Mục (2) là ID của Dockerhub Credential được tạo ở bước 7a, tỏng trường hợp này là "docker-credential".  
 
+<img width="991" height="405" alt="Image" src="https://github.com/user-attachments/assets/d3158943-2c5b-4df5-a5b3-2ec71d9abf04" />  
+
+Mục (3) là Credential của Cloud được tạo ở bước 7b.3  
+
+Mục (4) là **Kubenetes URL** được tạo ra ở bước 7b.1  
 
 ### c. Thiết lập luồng CI/CD:  
 
