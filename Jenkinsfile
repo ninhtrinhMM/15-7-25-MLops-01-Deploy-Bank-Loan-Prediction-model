@@ -174,7 +174,7 @@ spec:
             // Kiểm tra kubectl đã cài đặt
             sh '$HOME/k8s-tools/kubectl version --client'
             // Áp dụng lên cluster
-            withKubeConfig([credentialsId: 'wallah', serverUrl: 'https://34.124.251.86']) {
+            withKubeConfig([credentialsId: 'cloud-k8s-credentialcloud-3', serverUrl: 'https://34.124.251.86']) {
                 sh '$HOME/k8s-tools/kubectl apply -f deployment.yaml'
                 sh '$HOME/k8s-tools/kubectl apply -f service.yaml'
                 
