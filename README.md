@@ -430,7 +430,7 @@ Tiến hành tạo 1 một kho lưu trữ Helm (Helm repository) tên là promet
 
 Để tạo 1 khu vực riêng biệt cho các Pod và service từ Helm, chúng ta tạo 1 Namespace ( khu vực ) riêng biệt tên là monitoring: ```kubectl create namespace monitoring```  
 
-Cài đặt ứng dụng Prometheus vào cụm Cluster từ bộ kube-prometheus-stack trong Helm Repo prometheus-community với cấu hình của file prometheus-values.yaml  : ```helm install prometheus prometheus-community/kube-prometheus-stack --namespace monitoring --values prometheus-values.yaml --wait```   
+Cài đặt ứng dụng Prometheus vào cụm Cluster từ bộ kube-prometheus-stack trong Helm Repo prometheus-community với cấu hình của file prometheus-values.yaml  : ```helm install prometheus prometheus-community/kube-prometheus-stack --namespace monitoring --values prometheus/prometheus-values.yaml --wait```   
 
 Hoàn thiện xong, kiểm tra các Pod và service:  
 
@@ -439,3 +439,12 @@ Hoàn thiện xong, kiểm tra các Pod và service:
 
 <img width="993" height="194" alt="Image" src="https://github.com/user-attachments/assets/e063e5f6-4ab7-43fa-ae92-242e18ca0b99" />  
 
+Chạy file service-monitor.yaml: ```kubectl apply -f prometheus/service-monitor.yaml```  
+
+Để vào Prometheus, chúng ta cần truy cập vào service tên là "prometheus-kube-prometheus-prometheus" thông qua Port-forward:  
+
+```kubectl port-forward -n monitoring svc/prometheus-kube-prometheus-prometheus 9090:9090```  
+
+Truy cập service Prometheus bằng cách vào localhost:9090 ,giao diện hiện lên như dưới nghĩa là vào Prometheus thành công:  
+
+<img width="1312" height="481" alt="Image" src="https://github.com/user-attachments/assets/dbd84a4b-7bbb-4b46-b24e-11c520fb7a4f" />  
